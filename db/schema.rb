@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200414150743) do
+ActiveRecord::Schema.define(version: 20200414165317) do
 
   create_table "customers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "fname"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20200414150743) do
     t.string "phone"
     t.string "email"
     t.date "dob"
-    t.string "address"
+    t.text "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -52,7 +52,17 @@ ActiveRecord::Schema.define(version: 20200414150743) do
     t.string "category"
   end
 
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string "email"
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "employee_id"
+    t.index ["employee_id"], name: "index_users_on_employee_id"
+  end
+
   add_foreign_key "orders", "customers"
   add_foreign_key "orders", "employees"
   add_foreign_key "orders", "products"
+  add_foreign_key "users", "employees"
 end
