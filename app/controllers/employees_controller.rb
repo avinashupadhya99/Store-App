@@ -1,3 +1,5 @@
+require 'date'
+
 class EmployeesController < ApplicationController
   
   def index
@@ -10,21 +12,27 @@ class EmployeesController < ApplicationController
 
   def create
   	@employee = Employee.new(emp_params)
-  	if params.has_key?(:dob)
-  		if (Date.parse(params[:dob]) < 18.years.ago)
-			if @employee.save
-				flash[:success] = "Employee was added successfully"
-				redirect_to employee_path(@employee)
-			else
-				render 'new'
-			end
-		else
-			notice[:danger] = "Employees have to be atleast 18 years of age"
-		end
-	else
-		@employee.save
-		render 'new'
-	end
+  	if params[:employee][:dob].present?
+      dt = Date.today
+      y = dt.year-18
+      m = dt.mon
+      d = dt.mday
+      date_eighteen_ago = Date.new(y,m,d)
+  		if (Date.parse(params[:employee][:dob]) < date_eighteen_ago)
+  			if @employee.save
+  				flash[:success] = "Employee was added successfully"
+  				redirect_to employee_path(@employee)
+  			else
+  				render 'new'
+  			end
+  		else
+  			flash[:danger] = "Employees have to be atleast 18 years of age"
+        render 'new'
+  		end
+  	else
+  		@employee.save
+  		render 'new'
+  	end
   end
 
   def edit
