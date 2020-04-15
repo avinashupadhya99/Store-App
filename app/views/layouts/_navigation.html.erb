@@ -20,9 +20,28 @@
         </div>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
+    <!-- <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    </form> -->
+    <ul class="navbar-nav">
+      <% if logged_in? %>
+        <% employee = Employee.find(current_user.employee_id) %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= employee.lName %>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <%= link_to 'View Profile', employee_path(employee), class:"dropdown-item" %>
+            <%# link_to 'Edit Account', edit_user_path(current_user), class:"dropdown-item" %>
+            <%# link_to 'Edit Password', editPassword_path, class:"dropdown-item" %>
+            <div class="dropdown-divider"></div>
+            <%= link_to 'Log out', logout_path, method: :delete, class: "dropdown-item" %>
+          </div>
+        </li>
+      <% else %>
+          <li class="nav-item"><%= link_to 'Log In', login_path, class: "nav-link" %></li>
+      <% end %>
+    </ul>
   </div>
 </nav>

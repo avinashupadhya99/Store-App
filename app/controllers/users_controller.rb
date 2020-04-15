@@ -22,23 +22,23 @@ class UsersController < ApplicationController
                 render 'new'
               end
             else
-              flash[:danger] = "Login already created for \"#{@employee.email}\" "
+              flash.now[:danger] = "Login already created for \"#{@employee.email}\" "
               render 'new'
             end
           else
-            flash[:danger] = "No employee exists with that employee email id"
+            flash.now[:danger] = "No employee exists with that employee email id"
             render 'new'
           end
         else
-          flash[:danger] = "Passwords don't match"
+          flash.now[:danger] = "Passwords don't match"
           render 'new'
         end
       else
-        flash[:danger] = "Enter password and confirmation password"
+        flash.now[:danger] = "Enter password and confirmation password"
         render 'new'
       end
     else
-      flash[:danger] = "Email cannot be blank"
+      flash.now[:danger] = "Email cannot be blank"
       render 'new'
     end
   end
