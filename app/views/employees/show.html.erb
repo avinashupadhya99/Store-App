@@ -1,0 +1,32 @@
+<h1 class="text-center mt-3 mb-3"><%= @employee.fName %>&nbsp;<%= @employee.lName %></h1>
+<div class="text-center mb-3">
+	Joined <%= time_ago_in_words(@employee.created_at) %> ago
+</div>
+
+<!--Edit employee button, only for admin-->
+<div class="text-center">
+	<%= link_to 'Edit Info', edit_employee_path(@employee), class:"btn btn-info btn-sm" %>
+</div>
+<div class="row mt-5">
+	<div class="col-md-8 offset-md-2">
+	<table class="table table-striped">
+	  <tbody>
+	    <tr>
+	      <td class="font-weight-bold blue-color"><h5>Email</h5></td>
+	      <td><%= @employee.email %></td>
+	    </tr>
+	    <tr>
+	      <td class="font-weight-bold blue-color"><h5>Phone</h5></td>
+	      <td>+91 <%= @employee.phone %></td>
+	    </tr>
+	    <tr>
+	      <td class="font-weight-bold blue-color"><h5>Date of birth</h5></td>
+	      <td><%= @employee.dob %></td>
+	    </tr>
+	    <tr>
+	      <td class="font-weight-bold blue-color"><h5>Address</h5></td>
+	      <td><%= @employee.address %></td>
+	    </tr>
+	  </tbody>
+	</table>
+</div>
