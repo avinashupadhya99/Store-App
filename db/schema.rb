@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200415152837) do
+ActiveRecord::Schema.define(version: 20200415192552) do
 
   create_table "customers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "fname"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20200415152837) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "employee_id"
+    t.boolean "admin", default: false
     t.index ["employee_id"], name: "index_users_on_employee_id"
   end
 

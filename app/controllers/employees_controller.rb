@@ -2,6 +2,9 @@ require 'date'
 
 class EmployeesController < ApplicationController
   
+  before_action :require_user
+  before_action :require_admin, except: [:show]
+
   def index
 
   end
@@ -43,6 +46,16 @@ class EmployeesController < ApplicationController
 
   def show
     @employee = Employee.find(params[:id])
+    user = User.find_by(employee_id: @employee.id) #Find the user assosciated with the employee
+    if user.present?
+      if current_user!=user && !current_user.admin? #redirect if employee requested is not current user and current user is not admin
+        emp = Employee.find(current_user.employee_id)
+        redirect_to employee_path(emp)
+      end
+    elsif !current_user.admin? #If no login(user) is created for the employee, then redirect if current user is not admin
+      emp = Employee.find(current_user.employee_id)
+      redirect_to employee_path(emp)
+    end
   end
 
   private

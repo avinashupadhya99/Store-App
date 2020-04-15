@@ -2,11 +2,12 @@
 <div class="text-center mb-3">
 	Joined <%= time_ago_in_words(@employee.created_at) %> ago
 </div>
-
 <!--Edit employee button, only for admin-->
-<div class="text-center">
-	<%= link_to 'Edit Info', edit_employee_path(@employee), class:"btn btn-info btn-sm" %>
-</div>
+<% if current_user.admin? %>
+	<div class="text-center">
+		<%= link_to 'Edit Info', edit_employee_path(@employee), class:"btn btn-info btn-sm" %>
+	</div>
+<% end %>
 <div class="row mt-5">
 	<div class="col-md-8 offset-md-2">
 	<table class="table table-striped">

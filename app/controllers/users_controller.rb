@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   
+  before_action :require_user, except: [:new, :create]
+
   def new
   	@user = User.new
   end
@@ -17,6 +19,7 @@ class UsersController < ApplicationController
               @user = User.new(user_params)
               if @user.save
                 flash[:success] = "Login created for \"#{@employee.email}\""
+                session[:user_id] = @user.id
                 redirect_to employee_path(@employee)
               else
                 render 'new'
