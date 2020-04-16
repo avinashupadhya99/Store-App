@@ -54,6 +54,37 @@ class UsersController < ApplicationController
   	
   end
 
+  def editPassword
+  end
+
+  def updatePassword
+    user_pwd_change = current_user
+    if params[:user][:old_password].blank? || params[:user][:new_password].blank? || params[:user][:conf_password].blank?
+      flash[:danger] = "Enter all fields"
+      redirect_to editPassword_path
+    else
+      if params[:user][:new_password]!=params[:user][:conf_password]  #Check if passwords match
+        flash[:danger] = "Passwords don't match"
+        redirect_to editPassword_path
+      elsif params[:user][:old_password]==params[:user][:new_password] #Check if new password is same as old password
+        flash[:danger] = "New password cannot be same as old password"
+        redirect_to editPassword_path
+      elsif user_pwd_change.authenticate(params[:user][:old_password]) #Check if old password is correct
+        user_pwd_change.password=params[:user][:new_password]
+        if user_pwd_change.save
+          flash[:success] = "Password was changed successfully"
+          redirect_to employee_path(current_employee)
+        else
+          flash[:danger] = "Password cannot be blank"
+          redirect_to editPassword_path
+        end
+      else
+        flash[:danger] = "Wrong old password"
+        redirect_to editPassword_path
+      end    
+    end
+  end
+
   private
 
   def user_params
