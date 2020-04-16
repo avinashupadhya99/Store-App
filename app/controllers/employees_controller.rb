@@ -6,7 +6,7 @@ class EmployeesController < ApplicationController
   before_action :require_admin, except: [:show]
 
   def index
-    @employees = Employee.all
+    @employees = Employee.paginate(page: params[:page], per_page: 4)
   end
 
   def new

@@ -1,10 +1,15 @@
 <h1 class="text-center my-3">Showing all employees</h1>
 
+
+<div class="d-flex mt-3">
+  <div class="mx-auto">
+    <%= will_paginate @quizzes, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+  </div>
+</div>
 <% @employees.each do |employee| %>
 <div class="row">
 	<div class="col-md-8 offset-md-2">
 	<div class="card border-secondary mb-3">
-	  <!-- <div class="card-header bg-transparent border-secondary">Header</div> -->
 	  <div class="card-body text-dark blue-bg">
 	    <h5><%= employee.fName %> <%= employee.lName %></h5>
 	    <small><%= employee.email %></small>
@@ -20,3 +25,8 @@
 </div>
 </div>
 <% end %>
+<div class="d-flex mt-3">
+  <div class="mx-auto">
+    <%= will_paginate @quizzes, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+  </div>
+</div>

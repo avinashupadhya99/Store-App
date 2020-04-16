@@ -18,9 +18,11 @@
           <%= link_to 'All Orders', orders_path, class: 'dropdown-item' %>
         </div>
       </li>
-      <li class="nav-item">
-        <%= link_to 'Employees', employees_path, class: 'nav-link' %>
-      </li>
+      <% if logged_in? && current_user.admin? %>
+        <li class="nav-item">
+          <%= link_to 'Employees', employees_path, class: 'nav-link' %>
+        </li>
+      <% end %>
     </ul>
     <!-- <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
