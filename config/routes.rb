@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
 	resources:products
 
-	resources:users, except:[:show, :index, :destroy]
+	resources:users, except:[:show, :index]
 	
 	get 'login', to: 'sessions#new'
 

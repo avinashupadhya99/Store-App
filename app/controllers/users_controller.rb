@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   
   before_action :require_user, except: [:new, :create]
+  before_action :require_admin, only: [:destroy]
 
   def new
   	@user = User.new
@@ -83,6 +84,13 @@ class UsersController < ApplicationController
         redirect_to editPassword_path
       end    
     end
+  end
+
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    flash[:danger] = "User has been successfully deleted"
+    redirect_to employees_path
   end
 
   private
