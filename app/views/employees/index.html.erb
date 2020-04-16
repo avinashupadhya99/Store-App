@@ -1,0 +1,22 @@
+<h1 class="text-center my-3">Showing all employees</h1>
+
+<% @employees.each do |employee| %>
+<div class="row">
+	<div class="col-md-8 offset-md-2">
+	<div class="card border-secondary mb-3">
+	  <!-- <div class="card-header bg-transparent border-secondary">Header</div> -->
+	  <div class="card-body text-dark blue-bg">
+	    <h5><%= employee.fName %> <%= employee.lName %></h5>
+	    <small><%= employee.email %></small>
+	  </div>
+	  <div class="card-footer bg-light border-secondary">
+	  	Joined <%= time_ago_in_words(employee.created_at) %> ago
+	  	<span class="float-right">
+	  		<%= link_to '', employee_path(employee), class:'stretched-link' %>	
+	  		<%= link_to 'Edit Info', edit_employee_path(employee), class:"btn btn-info btn-sm" %>
+  		</span>
+	  </div>
+	</div>
+</div>
+</div>
+<% end %>
