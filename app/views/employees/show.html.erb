@@ -35,18 +35,19 @@
 		  </tbody>
 		</table>
 	</div>
-
-	<div class="col-md-4 offset-md-4">
-		<div class="squareItem">
-			<div class="squareInnerContainer">
-				<div class="squareIcon">
-					<%= fa_icon "shopping-cart" %>
-				</div>
-				<div class="squareContent">
-					<h2 class="counter">5</h2>
-					<h3>Orders processed</h3>
+	<% if !user.admin? %> <!--Do not display the number of orders processed for admins-->
+		<div class="col-md-4 offset-md-4">
+			<div class="squareItem mx-5">
+				<div class="squareInnerContainer">
+					<div class="squareIcon">
+						<%= fa_icon "shopping-cart" %>
+					</div>
+					<div class="squareContent">
+						<h1 class="counter"><%= @orders_processed %></h1>
+						<h3>Orders processed</h3>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	<% end %>
 </div>

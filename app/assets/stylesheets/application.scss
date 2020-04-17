@@ -10,18 +10,15 @@
 	background-color: #C2DFFF;
 }
 
-.section {
-	padding: 100px 0;
-}
+
 
 .squareItem {
-	margin-top: 30px;
     position: relative;
 }
 
 .squareInnerContainer {
 	position: relative;
-	padding: 50px 15px 35px;
+	padding: 35px 10px 20px;
 	text-align: center;
 	border: 2px solid #444;
 	border-top: none;
@@ -46,16 +43,14 @@
 }
 
 
-.squareContent h2 {
-	font-size: 56px;
-	margin-bottom: 10px;
-	font-weight: 400;
+.squareContent h1 {
+	margin-bottom: 1px;
+	font-weight: 450;
 	color: #1589FF;
 }
 
 .squareContent h3 {
-	font-size: 20px;
-	font-weight: 600;
+	font-weight: 400;
 	margin: 0;
 }
 

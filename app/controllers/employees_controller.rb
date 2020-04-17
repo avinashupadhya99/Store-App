@@ -70,6 +70,7 @@ class EmployeesController < ApplicationController
   def show
     @employee = Employee.find(params[:id])
     user = User.find_by(employee_id: @employee.id) #Find the user assosciated with the employee
+    @orders_processed = Order.where(employee_id: @employee.id).count(:id) #Find the number of orders processed by the employee
     if user.present?
       if current_user!=user && !current_user.admin? #redirect if employee requested is not current user and current user is not admin
         emp = Employee.find(current_user.employee_id)

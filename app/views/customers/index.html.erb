@@ -12,11 +12,13 @@
 	<div class="card border-secondary mb-3">
 	  <div class="card-body text-dark blue-bg">
 	    <h5><%= customer.fname %> <%= customer.lname %></h5>
-	    <small><%= customer.email %></small>
+	    +91 <%= customer.phone %><br>
+	    <%= customer.email %>
 	  </div>
 	  <%= link_to '', customer_path(customer), class:'stretched-link' %>	
 	  <div class="card-footer bg-light border-secondary">
-	  	<%= fa_icon "shopping-cart", class: '' %> : 10
+	  	<% items_bought = Order.where(customer_id: customer.id).sum(:quantity) %>
+	  	<%= fa_icon "shopping-cart", class: 'fa-2x' %><span class="h3"> : <%= items_bought %></span>
 	  </div>
 	</div>
 </div>
