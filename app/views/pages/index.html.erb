@@ -1,0 +1,9 @@
+<div class="jumbotron mt-5">
+  <h1 class="display-4">Hello, welcome to the Store!</h1>
+  <p class="lead">This is a simple application for creating orders and managing the inventory of the Store.</p>
+  <% if !logged_in? %>
+  <hr class="my-4">
+  <p>Log in if you are an employee to use the app</p>
+  <%= link_to 'Sign In', login_path, class: 'btn btn-primary btn-lg' %>
+  <% end %>
+</div>
