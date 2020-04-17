@@ -1,0 +1,40 @@
+<h1 class="text-center mt-3 mb-3"><%= @customer.fname %>&nbsp;<%= @customer.lname %></h1>
+<!-- <div class="text-center mb-3">
+	Joined <%# time_ago_in_words(@employee.created_at) %> ago
+</div> -->
+<!--Edit employee button, only for admin-->
+<% if current_user.admin? %>
+	<div class="text-center">
+		<%# link_to 'Edit Info', edit_employee_path(@employee), class:"btn btn-info btn-sm" %>
+	</div>
+<% end %>
+<div class="row mt-5">
+	<div class="col-md-8 offset-md-2">
+		<table class="table table-striped">
+		  <tbody>
+		    <tr>
+		      <td class="font-weight-bold blue-color"><h5>Email</h5></td>
+		      <td><%= @customer.email %></td>
+		    </tr>
+		    <tr>
+		      <td class="font-weight-bold blue-color"><h5>Phone</h5></td>
+		      <td>+91 <%= @customer.phone %></td>
+		    </tr>
+		  </tbody>
+		</table>
+	</div>
+
+	<div class="col-md-4 offset-md-4">
+		<div class="squareItem">
+			<div class="squareInnerContainer">
+				<div class="squareIcon">
+					<%= fa_icon "shopping-cart" %>
+				</div>
+				<div class="squareContent">
+					<h2 class="counter"><%= @items_bought %></h2>
+					<h3>Items bought</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

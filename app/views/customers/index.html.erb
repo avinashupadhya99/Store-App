@@ -1,0 +1,29 @@
+<h1 class="text-center my-3">Showing all customers</h1>
+
+
+<div class="d-flex mt-3">
+  <div class="mx-auto">
+    <%= will_paginate @customers, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+  </div>
+</div>
+<% @customers.each do |customer| %>
+<div class="row">
+	<div class="col-md-8 offset-md-2">
+	<div class="card border-secondary mb-3">
+	  <div class="card-body text-dark blue-bg">
+	    <h5><%= customer.fname %> <%= customer.lname %></h5>
+	    <small><%= customer.email %></small>
+	  </div>
+	  <%= link_to '', customer_path(customer), class:'stretched-link' %>	
+	  <div class="card-footer bg-light border-secondary">
+	  	<%= fa_icon "shopping-cart", class: '' %> : 10
+	  </div>
+	</div>
+</div>
+</div>
+<% end %>
+<div class="d-flex mt-3">
+  <div class="mx-auto">
+    <%= will_paginate @customers, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+  </div>
+</div>
