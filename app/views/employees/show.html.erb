@@ -14,24 +14,39 @@
 <% end %>
 <div class="row mt-5">
 	<div class="col-md-8 offset-md-2">
-	<table class="table table-striped">
-	  <tbody>
-	    <tr>
-	      <td class="font-weight-bold blue-color"><h5>Email</h5></td>
-	      <td><%= @employee.email %></td>
-	    </tr>
-	    <tr>
-	      <td class="font-weight-bold blue-color"><h5>Phone</h5></td>
-	      <td>+91 <%= @employee.phone %></td>
-	    </tr>
-	    <tr>
-	      <td class="font-weight-bold blue-color"><h5>Date of birth</h5></td>
-	      <td><%= @employee.dob %></td>
-	    </tr>
-	    <tr>
-	      <td class="font-weight-bold blue-color"><h5>Address</h5></td>
-	      <td><%= @employee.address %></td>
-	    </tr>
-	  </tbody>
-	</table>
+		<table class="table table-striped">
+		  <tbody>
+		    <tr>
+		      <td class="font-weight-bold blue-color"><h5>Email</h5></td>
+		      <td><%= @employee.email %></td>
+		    </tr>
+		    <tr>
+		      <td class="font-weight-bold blue-color"><h5>Phone</h5></td>
+		      <td>+91 <%= @employee.phone %></td>
+		    </tr>
+		    <tr>
+		      <td class="font-weight-bold blue-color"><h5>Date of birth</h5></td>
+		      <td><%= @employee.dob %></td>
+		    </tr>
+		    <tr>
+		      <td class="font-weight-bold blue-color"><h5>Address</h5></td>
+		      <td><%= @employee.address %></td>
+		    </tr>
+		  </tbody>
+		</table>
+	</div>
+
+	<div class="col-md-4 offset-md-4">
+		<div class="squareItem">
+			<div class="squareInnerContainer">
+				<div class="squareIcon">
+					<%= fa_icon "shopping-cart" %>
+				</div>
+				<div class="squareContent">
+					<h2 class="counter">5</h2>
+					<h3>Orders processed</h3>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

@@ -13,6 +13,19 @@
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
+//= require countUp
 //= require rails-ujs
 //= require turbolinks
 //= require_tree .
+
+$(document).ready(function() {
+
+
+	$(".counter").each(function() {
+	 	var element = $(this);
+	 	var endVal = parseInt(element.text());
+
+	 	element.countup(endVal);
+	 })
+
+});

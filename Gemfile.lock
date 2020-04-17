@@ -68,6 +68,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.6)
+    countupjs-rails (1.3.2.3)
     crass (1.0.6)
     erubi (1.9.0)
     execjs (2.7.0)
@@ -196,6 +197,7 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15)
   coffee-rails (~> 4.2)
+  countupjs-rails
   execjs (~> 2.5)
   font-awesome-rails
   jbuilder (~> 2.5)
