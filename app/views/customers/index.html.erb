@@ -1,7 +1,7 @@
 <h1 class="text-center my-3">Showing all customers</h1>
 
 
-<div class="d-flex mt-3">
+<div class="d-flex mt-3"><!--Pagination-->
   <div class="mx-auto">
     <%= will_paginate @customers, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
   </div>
@@ -18,14 +18,14 @@
 	  <%= link_to '', customer_path(customer), class:'stretched-link' %>	
 	  <div class="card-footer bg-light border-secondary">
 	  	<% all_orders = AggregatedOrder.where(customer_id: customer.id) %>
-	  	<% items_bought = Order.where(aggregated_order: all_orders).distinct.pluck(:product_id).count %>
+	  	<% items_bought = Order.where(aggregated_order: all_orders).distinct.pluck(:product_id).count %><!--Count of all sub orders of the customer with distinct products, i.e, the number of distinct products(items) bought by the customer-->
 	  	<%= fa_icon "shopping-cart", class: 'fa-2x' %><span class="h3"> : <%= items_bought %></span>
 	  </div>
 	</div>
 </div>
 </div>
 <% end %>
-<div class="d-flex mt-3">
+<div class="d-flex mt-3"><!--Pagination-->
   <div class="mx-auto">
     <%= will_paginate @customers, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
   </div>

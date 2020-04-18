@@ -23,10 +23,9 @@ class CustomersController < ApplicationController
 
   def show
   	@customer = Customer.find(params[:id])
-    all_orders = AggregatedOrder.where(customer_id: @customer.id)
-    @all_orders_page = all_orders.paginate(page: params[:page], per_page: 4)
-    @sub_orders = Order.where(aggregated_order_id: all_orders).distinct.pluck(:product_id)
-  	@items_bought = @sub_orders.count
+    all_orders = AggregatedOrder.where(customer_id: @customer.id) #All aggregated orders of the customer
+    @all_orders_page = all_orders.paginate(page: params[:page], per_page: 4) #Paginate the aggregated orders
+  	@items_bought = Order.where(aggregated_order_id: all_orders).distinct.pluck(:product_id).count #Count of all sub orders of the customer with distinct products, i.e, the number of distinct products(items) bought by the customer
 
   end
 

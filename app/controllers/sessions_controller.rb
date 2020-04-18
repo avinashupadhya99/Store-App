@@ -7,10 +7,10 @@ class SessionsController < ApplicationController
 	end
 
 	def create
-		employee = Employee.find_by(email: params[:session][:email].downcase)
-		if employee
-			user = User.find_by(employee_id: employee.id)
-			if user && user.authenticate(params[:session][:password])
+		employee = Employee.find_by(email: params[:session][:email].downcase) #Find the employee using the email entered
+		if employee #Proceed only if an employee exists with the email entered
+			user = User.find_by(employee_id: employee.id) #User of the employee
+			if user && user.authenticate(params[:session][:password]) #Proceed only if user exists and password is correct
 				session[:user_id] = user.id
 				flash[:success] = "You have successfully logged in"
 				redirect_to employee_path(employee)
@@ -32,7 +32,7 @@ class SessionsController < ApplicationController
 
 	private 
 
-	def no_login
+	def no_login #Checks if login path is called after logging in
 		if logged_in?
 			flash[:danger]="You are already logged in!"
 			redirect_to employee_path(current_user.employee_id)

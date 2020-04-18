@@ -18,7 +18,7 @@
           <%= link_to 'All Orders', aggregated_orders_path, class: 'dropdown-item' %>
         </div>
       </li>
-      <% if logged_in? && current_user.admin? %>
+      <% if logged_in? && current_user.admin? %><!--Display employees and customers only to admin-->
         <li class="nav-item">
           <%= link_to 'Employees', employees_path, class: 'nav-link' %>
         </li>
@@ -27,12 +27,8 @@
         </li>
       <% end %>
     </ul>
-    <!-- <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form> -->
     <ul class="navbar-nav">
-      <% if logged_in? %>
+      <% if logged_in? %><!--Display account options like View Profile, Edit password and Logout only for logged in users-->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <%= current_employee.lName %>
@@ -44,7 +40,7 @@
             <%= link_to 'Log out', logout_path, method: :delete, class: "dropdown-item" %>
           </div>
         </li>
-      <% else %>
+      <% else %><!--Display log in button if not logged in-->
           <li class="nav-item"><%= link_to 'Log In', login_path, class: "nav-link" %></li>
       <% end %>
     </ul>

@@ -1,6 +1,6 @@
 <h1 class="text-center my-3">All orders of the Store</h1>
 
-<div class="d-flex mt-3">
+<div class="d-flex mt-3"><!--Pagination-->
   <div class="mx-auto">
     <%= will_paginate @agg_orders, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
   </div>
@@ -19,13 +19,13 @@
 		  </thead>
 		  <tbody>
 		  	<% @agg_orders.each do |each_order| %>
-		  		<% employee = Employee.find(each_order.employee_id) %>
-		  		<% each_sub_order = Order.where(aggregated_order_id: each_order.id) %>
-			    <tr onclick="window.location='<%= aggregated_order_path(each_order) %>'" class="clickable">
+		  		<% employee = Employee.find(each_order.employee_id) %><!--Employee who processed the order-->
+		  		<% each_sub_order = Order.where(aggregated_order_id: each_order.id) %> <!--Sub order of each aggregated order-->
+			    <tr onclick="window.location='<%= aggregated_order_path(each_order) %>'" class="clickable"><!--Make the entire table row as a link for the aggregated order-->
 			      <th scope="row"><%= each_order.id %></th>
-			      <td><%= each_sub_order.count %></td>
-			      <td><%= employee.fName %>&nbsp;<%= employee.lName %></td>
-			      <td><%= each_order.created_at %> (<%= time_ago_in_words(each_order.created_at) %> ago)</td>
+			      <td><%= each_sub_order.count %></td><!--Number of items in each sub order-->
+			      <td><%= employee.fName %>&nbsp;<%= employee.lName %></td><!--Name of the employee who processed it-->
+			      <td><%= each_order.created_at %> (<%= time_ago_in_words(each_order.created_at) %> ago)</td><!--Time of each sub order-->
 			    </tr>
 		    <% end %>
 		  </tbody>

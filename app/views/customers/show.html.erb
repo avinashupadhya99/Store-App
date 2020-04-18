@@ -1,7 +1,5 @@
 <h1 class="text-center mt-3 mb-3"><%= @customer.fname %>&nbsp;<%= @customer.lname %></h1>
-<!-- <div class="text-center mb-3">
-	Joined <%# time_ago_in_words(@employee.created_at) %> ago
-</div> -->
+
 <!--Edit employee button, only for admin-->
 <% if current_user.admin? %>
 	<div class="text-center">
@@ -25,7 +23,7 @@
 	</div>
 
 	<div class="col-md-4 offset-md-4">
-		<div class="squareItem mx-5">
+		<div class="squareItem mx-5"><!--Number of items box-->
 			<div class="squareInnerContainer">
 				<div class="squareIcon">
 					<%= fa_icon "shopping-cart" %>
@@ -37,7 +35,7 @@
 			</div>
 		</div>
 	</div>
-	<% if @all_orders_page %>
+	<% if @all_orders_page %><!--Display all orders if present-->
 		
 		<div class="col-md-8 offset-md-2">
 			<h3 class="my-4">Orders by <%= @customer.fname %>&nbsp;<%= @customer.lname %></h3>
@@ -52,9 +50,9 @@
 			  </thead>
 			  <tbody>
 			  	<% @all_orders_page.each do |each_order| %>
-			  		<% employee = Employee.find(each_order.employee_id) %>
-			  		<% each_sub_order = Order.where(aggregated_order_id: each_order.id) %>
-				    <tr onclick="window.location='<%= aggregated_order_path(each_order) %>'" class="clickable">
+			  		<% employee = Employee.find(each_order.employee_id) %><!--Employee of each order-->
+			  		<% each_sub_order = Order.where(aggregated_order_id: each_order.id) %><!--All sub orders of each aggregated order-->
+				    <tr onclick="window.location='<%= aggregated_order_path(each_order) %>'" class="clickable"><!--Make the entire link clickable-->
 				      <th scope="row"><%= each_order.id %></th>
 				      <td><%= each_sub_order.count %></td>
 				      <td><%= employee.fName %>&nbsp;<%= employee.lName %></td>
@@ -63,7 +61,7 @@
 			    <% end %>
 			  </tbody>
 			</table>
-			<div class="d-flex mt-3">
+			<div class="d-flex mt-3"><!--Pagination-->
 			  <div class="mx-auto">
 			    <%= will_paginate @all_orders_page, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
 			  </div>

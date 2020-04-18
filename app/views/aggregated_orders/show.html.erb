@@ -1,6 +1,6 @@
 <h1 class="text-center my-3">Order #<%= @agg_order.id %></h1>
-<% customer = Customer.find(@agg_order.customer_id) %>
-<% employee = Employee.find(@agg_order.employee_id) %>
+<% customer = Customer.find(@agg_order.customer_id) %><!--Customer of the aggregated order-->
+<% employee = Employee.find(@agg_order.employee_id) %><!--Employee who processed the order-->
 <div class="text-center">
 	<div class="row">
 		<div class="col-lg-2 offset-lg-4 col-md-3 offset-md-3 col-sm-3 offset-sm-3 col-xs-3 offset-xs-3 col-3 offset-3">
@@ -43,9 +43,9 @@
 		    </tr>
 		  </thead>
 		  <tbody>
-		  	<% i=1 %>
+		  	<% i=1 %><!--For serial numbers-->
 		  	<% @sub_orders.each do |sub_order| %>
-		  		<% product = Product.find(sub_order.product_id) %>
+		  		<% product = Product.find(sub_order.product_id) %><!--Product of each sub order-->
 			    <tr>
 			      <th scope="row"><%= i %></th>
 			      <td><%= product.name %></td>

@@ -37,7 +37,7 @@
 	</div>
 	<% if (user.present? && !user.admin?) || (!user.present?) %> <!--Do not display the number of orders processed for admins-->
 		<div class="col-md-4 offset-md-4">
-			<div class="squareItem mx-5">
+			<div class="squareItem mx-5"><!--Number of orders processed box-->
 				<div class="squareInnerContainer">
 					<div class="squareIcon">
 						<%= fa_icon "shopping-cart" %>
