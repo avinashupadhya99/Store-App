@@ -3,7 +3,7 @@ class AggregatedOrdersController < ApplicationController
 	before_action :require_user
 
 	def index
-
+		@agg_orders = AggregatedOrder.all
 	end
 
 	def new
