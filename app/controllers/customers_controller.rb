@@ -23,7 +23,9 @@ class CustomersController < ApplicationController
 
   def show
   	@customer = Customer.find(params[:id])
-  	@items_bought = Order.where(customer_id: @customer.id).sum(:quantity)
+    @all_orders = AggregatedOrder.where(customer_id: @customer.id)
+    @sub_orders = Order.where(aggregated_order_id: @all_orders).distinct.pluck(:product_id)
+  	@items_bought = @sub_orders.count
 
   end
 

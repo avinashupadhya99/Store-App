@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200415192552) do
+ActiveRecord::Schema.define(version: 20200418064444) do
+
+  create_table "aggregated_orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "employee_id"
+    t.bigint "customer_id"
+    t.index ["customer_id"], name: "index_aggregated_orders_on_customer_id"
+    t.index ["employee_id"], name: "index_aggregated_orders_on_employee_id"
+  end
 
   create_table "customers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "fname"
@@ -35,13 +44,9 @@ ActiveRecord::Schema.define(version: 20200415192552) do
   create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer "quantity"
     t.bigint "amount"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "employee_id"
-    t.bigint "customer_id"
     t.bigint "product_id"
-    t.index ["customer_id"], name: "index_orders_on_customer_id"
-    t.index ["employee_id"], name: "index_orders_on_employee_id"
+    t.bigint "aggregated_order_id"
+    t.index ["aggregated_order_id"], name: "index_orders_on_aggregated_order_id"
     t.index ["product_id"], name: "index_orders_on_product_id"
   end
 
@@ -61,8 +66,9 @@ ActiveRecord::Schema.define(version: 20200415192552) do
     t.index ["employee_id"], name: "index_users_on_employee_id"
   end
 
-  add_foreign_key "orders", "customers"
-  add_foreign_key "orders", "employees"
+  add_foreign_key "aggregated_orders", "customers"
+  add_foreign_key "aggregated_orders", "employees"
+  add_foreign_key "orders", "aggregated_orders"
   add_foreign_key "orders", "products"
   add_foreign_key "users", "employees"
 end

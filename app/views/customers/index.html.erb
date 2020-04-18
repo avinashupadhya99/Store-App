@@ -17,7 +17,8 @@
 	  </div>
 	  <%= link_to '', customer_path(customer), class:'stretched-link' %>	
 	  <div class="card-footer bg-light border-secondary">
-	  	<% items_bought = Order.where(customer_id: customer.id).sum(:quantity) %>
+	  	<% all_orders = AggregatedOrder.where(customer_id: customer.id) %>
+	  	<% items_bought = Order.where(aggregated_order: all_orders).distinct.pluck(:product_id).count %>
 	  	<%= fa_icon "shopping-cart", class: 'fa-2x' %><span class="h3"> : <%= items_bought %></span>
 	  </div>
 	</div>

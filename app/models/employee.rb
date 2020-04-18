@@ -1,5 +1,5 @@
 class Employee < ApplicationRecord
-	has_many :orders, :dependent => :destroy
+	has_many :aggregated_orders, :dependent => :destroy
 	has_one :user, :dependent => :destroy
 	before_save { self.email = email.downcase }
 	validates :fName, presence: true, length: { maximum: 20, minimum: 3 }

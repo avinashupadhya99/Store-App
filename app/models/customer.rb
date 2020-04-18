@@ -1,5 +1,5 @@
 class Customer < ApplicationRecord
-	has_many :orders, :dependent => :destroy
+	has_many :aggregated_orders, :dependent => :destroy
 	before_save { self.email = email.downcase }
 	validates :fname, presence: true, length: { maximum: 20, minimum: 3 }
 	validates :lname, presence: true, length: { maximum: 20, minimum: 3 }
