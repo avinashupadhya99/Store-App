@@ -4,9 +4,11 @@ Rails.application.routes.draw do
 
 	resources:employees
 
-	resources:orders
+	resources:orders, except:[:index, :show]
 
 	resources:products
+
+	resources:aggregated_orders
 
 	resources:users, except:[:show, :index]
 	

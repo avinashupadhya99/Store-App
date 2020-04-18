@@ -1,0 +1,60 @@
+<h1 class="text-center my-3">Order #<%= @agg_order.id %></h1>
+<% customer = Customer.find(@agg_order.customer_id) %>
+<% employee = Employee.find(@agg_order.employee_id) %>
+<div class="text-center text-muted">
+	<div class="row">
+		<div class="col-lg-2 offset-lg-4 col-md-3 offset-md-3 col-sm-3 offset-sm-3 col-xs-3 offset-xs-3 col-3 offset-3">
+			<h4>Customer</h4>
+		</div>
+			<h4>:</h4>
+		<div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 col-4">
+			<h4><%= customer.fname %>&nbsp;<%= customer.lname %></h4>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-2 offset-lg-4 col-md-3 offset-md-3 col-sm-3 offset-sm-3 col-xs-3 offset-xs-3 col-3 offset-3">
+			<h4>Processed by</h4>
+		</div>
+			<h4>:</h4>
+		<div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 col-4">
+			<h4><%= employee.fName %>&nbsp;<%= employee.lName %></h4>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-2 offset-lg-4 col-md-3 offset-md-3 col-sm-3 offset-sm-3 col-xs-3 offset-xs-3 col-3 offset-3">
+			<h4>Bought on</h4>
+		</div>
+			<h4>:</h4>
+		<div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 col-4">
+			<h4><%= @agg_order.created_at %></h4>
+		</div>
+	</div>
+</div>
+<div class="row mt-4">
+	<div class="col-md-8 offset-md-2">
+		<h3>Items- </h3>
+		<table class="table table-striped">
+		  <thead>
+		    <tr>
+		      <th scope="col">#</th>
+		      <th scope="col">Product</th>
+		      <th scope="col">Quantity</th>
+		      <th scope="col">Amount</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  	<% i=1 %>
+		  	<% @sub_orders.each do |sub_order| %>
+		  		<% product = Product.find(sub_order.product_id) %>
+			    <tr>
+			      <th scope="row"><%= i %></th>
+			      <td><%= product.name %></td>
+			      <td><%= sub_order.quantity %></td>
+			      <td><%= sub_order.amount %></td>
+			    </tr>
+			    <% i+=1 %>
+		    <% end %>
+		  </tbody>
+		</table>
+	</div>
+</div>

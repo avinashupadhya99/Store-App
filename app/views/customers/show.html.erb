@@ -53,10 +53,10 @@
 			  	<% @all_orders.each do |each_order| %>
 			  		<% employee = Employee.find(each_order.employee_id) %>
 			  		<% each_sub_order = Order.where(aggregated_order_id: each_order.id) %>
-				    <tr>
+				    <tr onclick="window.location='<%= aggregated_order_path(each_order) %>'" class="clickable">
 				      <th scope="row"><%= each_order.id %></th>
 				      <td><%= each_sub_order.count %></td>
-				      <td><%= employee.fName %><%= employee.lName %></td>
+				      <td><%= employee.fName %>&nbsp;<%= employee.lName %></td>
 				      <td><%= each_order.created_at %> (<%= time_ago_in_words(each_order.created_at) %> ago)</td>
 				    </tr>
 			    <% end %>
