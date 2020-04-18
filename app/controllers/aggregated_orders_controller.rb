@@ -3,7 +3,7 @@ class AggregatedOrdersController < ApplicationController
 	before_action :require_user
 
 	def index
-		@agg_orders = AggregatedOrder.all
+		@agg_orders = AggregatedOrder.paginate(page: params[:page], per_page: 8)
 	end
 
 	def new

@@ -37,7 +37,8 @@
 			</div>
 		</div>
 	</div>
-	<% if @all_orders %>
+	<% if @all_orders_page %>
+		
 		<div class="col-md-8 offset-md-2">
 			<h3 class="my-4">Orders by <%= @customer.fname %>&nbsp;<%= @customer.lname %></h3>
 			<table class="table table-hover">
@@ -50,7 +51,7 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			  	<% @all_orders.each do |each_order| %>
+			  	<% @all_orders_page.each do |each_order| %>
 			  		<% employee = Employee.find(each_order.employee_id) %>
 			  		<% each_sub_order = Order.where(aggregated_order_id: each_order.id) %>
 				    <tr onclick="window.location='<%= aggregated_order_path(each_order) %>'" class="clickable">
@@ -62,6 +63,11 @@
 			    <% end %>
 			  </tbody>
 			</table>
+			<div class="d-flex mt-3">
+			  <div class="mx-auto">
+			    <%= will_paginate @all_orders_page, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+			  </div>
+			</div>
 		</div>
 	<% end %>
 </div>
