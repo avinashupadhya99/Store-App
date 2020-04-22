@@ -7,4 +7,9 @@ class Customer < ApplicationRecord
 	validates :email, presence: true, length: { maximum: 105 },	uniqueness: { case_sensitive: false }, format: { with: VALID_EMAIL_REGEX }
 	VALID_PHONE_REGEX = /\d/
 	validates :phone, presence: true, length: { maximum: 10, minimum: 10}, uniqueness: true, format: { with: VALID_PHONE_REGEX }
+
+	def self.new_from_lookup(phone_number)
+        looked_up_customer = Customer.find_by(phone: phone_number)
+    end
+
 end

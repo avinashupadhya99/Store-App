@@ -10,22 +10,39 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
 //= require countUp
 //= require rails-ujs
+//= require cocoon
 //= require turbolinks
 //= require_tree .
 
-$(document).ready(function() {
 
+// $(document).on('turbolinks:load', function() {
 
-	$(".counter").each(function() {
-	 	var element = $(this);
-	 	var endVal = parseInt(element.text());
+//   $('form').on('click', '.remove_record', function(event) {
+//     $(this).prev('input[type=hidden]').val('1');
+//     console.log($(this).prev('input[type=hidden]').val)
+//     $(this).closest('article').hide();
+//     return event.preventDefault();
+//   });
 
-	 	element.countup(endVal);
-	 })
+//   $('form').on('click', '.add_fields', function(event) {
+//     var regexp, time;
+//     time = new Date().getTime();
+//     regexp = new RegExp($(this).data('id'), 'g');
+//     $('.fields').append($(this).data('fields').replace(regexp, time));
+//     return event.preventDefault();
+//   });
+  
+//   $(".counter").each(function() {
+// 	 	var element = $(this);
+// 	 	var endVal = parseInt(element.text());
 
-});
+// 	 	element.countup(endVal);
+// 	 });
+  
+// });
