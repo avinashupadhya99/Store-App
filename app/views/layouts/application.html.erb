@@ -8,7 +8,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="<%= controller_name %>_<%= action_name %>"> <!--To add custom css based on controller and action-->
   	<%= render 'layouts/navigation' %>
     <div class="container">
       <%= render 'layouts/messages' %>

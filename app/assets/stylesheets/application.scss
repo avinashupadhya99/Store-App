@@ -68,3 +68,47 @@
 .clickable {
 	cursor: pointer;
 }
+
+body {
+  overflow-x: hidden;
+}
+
+
+.aggregated_orders_new .container {
+	width : 100% !important;
+	padding-right: 0px !important;
+	margin-right : 70px !important;
+}
+
+#sidebar-wrapper {
+  margin-left: -15rem;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+}
+
+
+#sidebar-wrapper {
+  width: 30rem;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+}
+
+
+@media (min-width: 500px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -15rem;
+  }
+}

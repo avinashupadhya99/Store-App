@@ -1,46 +1,55 @@
-<h1 class="text-center my-3">Create new order</h1>
+<div class="d-flex mt-3" id="wrapper">
 
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+		<h1 class="text-center my-3">Create new order</h1>
+		<div class="row">
+			<div class="col-lg-10 offset-lg-1 col-md-12 col-sm-10 offset-sm-1 col-xs-10 offset-xs-1 col-10 offset-1">
+				<%= form_for @agg_order do |f| %>
+					
+					<%= f.hidden_field :employee_id, value: current_employee.id %>
 
-<h3>Search for Stocks</h3>
-<div id="stock-lookup">
-  <%= form_tag search_customers_path, remote: true, method: :get, id: "customer-lookup-form" do %>
-    <div class="form-group row no-padding text-center col-md-12">
-      <div class="col-md-10">
-        <%= number_field_tag :customer, params[:customer], 
-                                  placeholder: "Phone number", autofocus: true,
-                                  class: "form-control search-box input-lg" %>
-      </div>
-      <div class="col-md-2">
-        <%= button_tag(type: :submit, class: "btn btn-lg btn-success") do %>
-          Look up a customer
-        <% end %>
-      </div>
-    </div>
-  
-  <% end %>
-</div>
-<div id="customers">
-	<%= render 'customer' %>
-</div>
-<div class="row">
-	<div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-10 offset-sm-1 col-xs-10 offset-xs-1 col-10 offset-1">
-		<%= form_for @agg_order do |f| %>
-			
-			<%= f.hidden_field :employee_id, value: current_employee.id %>
+					<%= f.hidden_field :customer_id, value: 1 %>
+					<div class="orders">
+						<%= f.fields_for :orders do |order| %>
+							<%= render 'order_fields', :f => order %>
+						<% end %>
+					</div>
+					<div class='links'>
+				      <%= link_to_add_association 'Add Item', f, :orders, class: 'btn btn-primary' %>
+				    </div>
+					<div class="form-group text-center">
+							<%= f.submit "Create order", class: 'btn btn-primary btn-lg' %>
+					</div>
 
-			<%= f.hidden_field :customer_id, value: 1 %>
-			<div class="orders">
-				<%= f.fields_for :orders do |order| %>
-					<%= render 'order_fields', :f => order %>
 				<% end %>
 			</div>
-			<div class='links'>
-		      <%= link_to_add_association 'Add Item', f, :orders, class: 'btn btn-primary' %>
-		    </div>
-			<div class="form-group text-center">
-					<%= f.submit "Create order", class: 'btn btn-primary btn-lg' %>
-			</div>
-
-		<% end %>
+		</div>
 	</div>
+
+	<!-- Sidebar -->
+    <div class="bg-light border-right align-self-start" id="sidebar-wrapper">
+      <h3 class="text-center my-3">Search for Customer</h3>
+		<div id="customer-lookup">
+		  <%= form_tag search_customers_path, remote: true, method: :get, id: "customer-lookup-form" do %>
+		    <div class="form-group row no-padding text-center col-md-12">
+		      <div class="col-md-8">
+		        <%= number_field_tag :customer, params[:customer], 
+		                                  placeholder: "Phone number", autofocus: true,
+		                                  class: "form-control search-box input-lg" %>
+		      </div>
+		      <div class="col-md-4">
+		        <%= button_tag(type: :submit, class: "btn btn-success") do %>
+		          Search
+		        <% end %>
+		      </div>
+		    </div>
+		  
+		  <% end %>
+		</div>
+		<div id="customers">
+			<%= render 'customer' %>
+		</div>
+    </div>
+    <!-- /#sidebar-wrapper -->
 </div>
