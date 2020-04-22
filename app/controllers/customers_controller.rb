@@ -30,18 +30,14 @@ class CustomersController < ApplicationController
   end
 
   def search
-    if params[:customer].present?
-      @customer = Customer.new_from_lookup(params[:customer])
-      if @customer
-        respond_to do |format|
-          format.js { render partial: 'aggregated_orders/customer' }
-        end        
-      else
-        flash[:danger] = "No customer with that phone number"
-        redirect_to new_aggregated_order_path
-      end
+    if params[:customer].blank?
+
     else
-      redirect_to new_aggregated_order_path
+      @customer = Customer.new_from_lookup(params[:customer])
+      flash.now[:danger] = "No customer with that phone number exists" unless @customer
+    end
+    respond_to do |format|
+      format.js { render partial: 'aggregated_orders/customer' }
     end
   end
 
