@@ -16,6 +16,9 @@ class CustomersController < ApplicationController
     @customer = Customer.new(customer_params)
     respond_to do |format|
       if @customer.save
+        flash.now[:success] = "Customer created successfully"
+        format.js { render partial: 'aggregated_orders/customer' }
+      else
         format.js { render partial: 'aggregated_orders/customer' }
       end
     end
