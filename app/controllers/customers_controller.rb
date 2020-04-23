@@ -1,7 +1,7 @@
 class CustomersController < ApplicationController
   
   before_action :require_user
-  before_action :require_admin, except: [:search]
+  before_action :require_admin, except: [:search, :create]
 
   def index
   	@customers = Customer.paginate(page: params[:page], per_page: 4)
@@ -13,6 +13,12 @@ class CustomersController < ApplicationController
   end
 
   def create
+    @customer = Customer.new(customer_params)
+    respond_to do |format|
+      if @customer.save
+        format.js { render partial: 'aggregated_orders/customer' }
+      end
+    end
   end
 
   def edit
@@ -39,6 +45,12 @@ class CustomersController < ApplicationController
     respond_to do |format|
       format.js { render partial: 'aggregated_orders/customer' }
     end
+  end
+
+  private
+
+  def customer_params
+    params.require(:customer).permit(:fname, :lname, :phone, :email)
   end
 
 end

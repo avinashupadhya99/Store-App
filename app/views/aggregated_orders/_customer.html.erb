@@ -1,19 +1,19 @@
 <%= render 'layouts/messages' %>
 <% if @customer %>
-<div class="row">
-	<div class="col-md-8 offset-md-2">
-	<div class="card border-secondary mb-3">
-	  <div class="card-body text-dark blue-bg">
-	    <h5><%= @customer.fname %> <%= @customer.lname %></h5>
-	    +91 <%= @customer.phone %><br>
-	    <%= @customer.email %>
-	  </div>
-	  <div class="card-footer bg-light border-secondary">
-	  	<% all_orders = AggregatedOrder.where(customer_id: @customer.id) %>
-	  	<% items_bought = Order.where(aggregated_order: all_orders).distinct.pluck(:product_id).count %><!--Count of all sub orders of the customer with distinct products, i.e, the number of distinct products(items) bought by the customer-->
-	  	<%= fa_icon "shopping-cart", class: 'fa-2x' %><span class="h3"> : <%= items_bought %></span>
-	  </div>
+	<div class="row">
+		<div class="col-md-8 offset-md-2">
+		<div class="card border-secondary mb-3">
+		  <div class="card-body text-dark blue-bg">
+		    <h5><%= @customer.fname %> <%= @customer.lname %></h5>
+		    +91 <%= @customer.phone %><br>
+		    <%= @customer.email %>
+		  </div>
+		  <div class="card-footer bg-light border-secondary">
+		  	<% all_orders = AggregatedOrder.where(customer_id: @customer.id) %>
+		  	<% items_bought = Order.where(aggregated_order: all_orders).distinct.pluck(:product_id).count %><!--Count of all sub orders of the customer with distinct products, i.e, the number of distinct products(items) bought by the customer-->
+		  	<%= fa_icon "shopping-cart", class: 'fa-2x' %><span class="h3"> : <%= items_bought %></span>
+		  </div>
+		</div>
 	</div>
-</div>
-</div>
+	</div>
 <% end %>

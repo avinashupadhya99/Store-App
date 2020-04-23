@@ -40,7 +40,7 @@
 		      </div>
 		      <div class="col-md-4">
 		        <%= button_tag(type: :submit, class: "btn btn-success") do %>
-		          Search
+		          <%# fa_icon "search", class: "fa-xs" %>Search
 		        <% end %>
 		      </div>
 		    </div>
@@ -49,6 +49,18 @@
 		</div>
 		<div id="customers">
 			<%= render 'customer' %>
+		</div>
+		<div class="float-right pr-3 pb-2">
+			<a class="btn btn-primary btn-sm" data-toggle="collapse" href="#collapseAddCustomer" role="button" aria-expanded="false" aria-controls="collapseAddCustomer">
+		    New customer
+		  </a>
+		</div>
+		<div class="collapse" id="collapseAddCustomer">
+			<br>
+		  <div class="card card-body mt-4">
+		    <%= render "customers/form",
+		    :customer => @customer_new %>
+		  </div>
 		</div>
     </div>
     <!-- /#sidebar-wrapper -->

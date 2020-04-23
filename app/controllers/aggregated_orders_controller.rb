@@ -8,7 +8,7 @@ class AggregatedOrdersController < ApplicationController
 
 	def new
 		@agg_order = AggregatedOrder.new 
-		 #Nested form for sub orders
+		@customer_new = Customer.new #For new customer form
 	end
 
 	def create
