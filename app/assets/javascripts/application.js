@@ -20,8 +20,16 @@
 //= require turbolinks
 //= require_tree .
 
+$(document).ready(function(){
+	$('#addCustomer').click(function(){
+ 		console.log('c');
+ 		return false;
+ 	}); 
+});
 
-// $(document).on('turbolinks:load', function() {
+
+ $(document).on('turbolinks:load', function() {
+
 
 //   $('form').on('click', '.remove_record', function(event) {
 //     $(this).prev('input[type=hidden]').val('1');
@@ -45,4 +53,6 @@
 // 	 	element.countup(endVal);
 // 	 });
   
-// });
+ });
+
+

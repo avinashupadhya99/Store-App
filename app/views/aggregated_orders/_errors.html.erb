@@ -1,0 +1,16 @@
+<!--Error messages of orders-->
+<% if @agg_order.errors.any? %>
+
+<div class="alert alert-danger" role="alert">
+    <a href="#" class="close" data-dismiss="alert">&#215;</a>
+	<h5 class="card-title"><%= pluralize(@agg_order.errors.count, "error") %> prohibited this order from being created</h5>
+	<p class="card-text">
+		<ul>
+			<% @agg_order.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+		</ul>
+	</p>
+</div>
+
+<% end %>

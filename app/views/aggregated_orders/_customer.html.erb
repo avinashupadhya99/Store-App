@@ -5,10 +5,14 @@
 			<div class="col-md-8 offset-md-2">
 			<div class="card border-secondary mb-3">
 			  <div class="card-body text-dark blue-bg">
+			  	<%= @customer.id %>
 			    <h5><%= @customer.fname %> <%= @customer.lname %></h5>
 			    +91 <%= @customer.phone %><br>
 			    <%= @customer.email %>
+			    <%# link_to '', '', :onclick => 'alert(''); return false;', id: 'addCustomer', class:'stretched-link'%>
+			    <a href="#" onclick="return false;" class="stretched-link" id="addCustomer"></a>
 			  </div>
+			  
 			  <div class="card-footer bg-light border-secondary">
 			  	<% all_orders = AggregatedOrder.where(customer_id: @customer.id) %>
 			  	<% items_bought = Order.where(aggregated_order: all_orders).distinct.pluck(:product_id).count %><!--Count of all sub orders of the customer with distinct products, i.e, the number of distinct products(items) bought by the customer-->
@@ -19,5 +23,13 @@
 		</div>
 	<% end %>
 	<%= render 'customers/errors', :customer => @customer %>
-<% end %>
+
+<script>
+	$('#addCustomer').click(function(){
+ 		$('.customer_field').val(<%= @customer.id %>);
+ 		$('.customer_details').html("<%= @customer.fname %> <%= @customer.lname %> (<%= @customer.phone %>)");
+ 		return false;
+ 	}); 
+ </script>
+ <% end %>
 

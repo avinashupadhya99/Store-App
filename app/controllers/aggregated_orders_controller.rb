@@ -17,6 +17,7 @@ class AggregatedOrdersController < ApplicationController
 			flash[:success] = "Order was placed successfully"
 			redirect_to aggregated_order_path(@agg_order)
 		else
+			@customer_new = Customer.new #For new customer form
 			render 'new'
 		end
 	end
