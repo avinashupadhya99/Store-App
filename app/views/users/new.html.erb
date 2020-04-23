@@ -1,35 +1,37 @@
-<!--Create Login(user) page-->
-<h1 class="text-center mt-3 mb-5">Create Login for Employee</h1>
+<div class="container">
+	<!--Create Login(user) page-->
+	<h1 class="text-center mt-3 mb-5">Create Login for Employee</h1>
 
-<%= render 'errors' %>
+	<%= render 'errors' %>
 
-<div class="row mt-3">
-	<div class="col-md-6 offset-md-3 col-sm-6 offset-sm-3 col-6 offset-3">
-		<%= form_for @user do |f| %>
-			<div class="form-group">
-				<h5 class="font-weight-normal">
-					<%= f.label :email %>
-				</h5>
-					<%= f.email_field :email, class: "form-control", placeholder: "Enter email" %>
+	<div class="row mt-3">
+		<div class="col-md-6 offset-md-3 col-sm-6 offset-sm-3 col-6 offset-3">
+			<%= form_for @user do |f| %>
+				<div class="form-group">
+					<h5 class="font-weight-normal">
+						<%= f.label :email %>
+					</h5>
+						<%= f.email_field :email, class: "form-control", placeholder: "Enter email" %>
+				</div>
+				<div class="form-group">
+					<h5 class="font-weight-normal">
+						<%= f.label :password %>
+					</h5>
+						<%= f.password_field :password, class: "form-control", placeholder: "Enter password" %>
+				</div>
+				<div class="form-group">
+					<h5 class="font-weight-normal">
+						<%= f.label :confirm_password %>
+					</h5>
+						<%= f.password_field :conf_password, class: "form-control", placeholder: "Confirm password" %>
+				</div>
+				<div class="form-group text-center">
+						<%= f.submit "Create Login", class: 'btn btn-primary btn-lg' %>
+				</div>
+			<% end %>
+			<div class="text-center">
+				[ <%= link_to "Cancel request and return to employees listing", employees_path %> ]
 			</div>
-			<div class="form-group">
-				<h5 class="font-weight-normal">
-					<%= f.label :password %>
-				</h5>
-					<%= f.password_field :password, class: "form-control", placeholder: "Enter password" %>
-			</div>
-			<div class="form-group">
-				<h5 class="font-weight-normal">
-					<%= f.label :confirm_password %>
-				</h5>
-					<%= f.password_field :conf_password, class: "form-control", placeholder: "Confirm password" %>
-			</div>
-			<div class="form-group text-center">
-					<%= f.submit "Create Login", class: 'btn btn-primary btn-lg' %>
-			</div>
-		<% end %>
-		<div class="text-center">
-			[ <%= link_to "Cancel request and return to employees listing", employees_path %> ]
 		</div>
 	</div>
 </div>

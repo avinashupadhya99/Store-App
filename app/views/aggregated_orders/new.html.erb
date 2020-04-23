@@ -1,15 +1,41 @@
 <%= render 'errors' %>
 
 <div class="d-flex mt-3" id="wrapper">
+	<div class="bg-light border align-self-start sidebar-wrapper">
+      <h3 class="text-center my-3">Search for Products</h3>
+		<div id="product-lookup">
+		  <%= form_tag search_products_path, remote: true, method: :get, id: "product-lookup-form" do %>
+		    <div class="form-group row no-padding text-center col-md-12">
+		      <div class="col-md-8">
+		        <%= text_field_tag :product, params[:product], 
+		                                  placeholder: "Name of product", autofocus: true,
+		                                  class: "form-control search-box input-lg" %>
+		      </div>
+		      <div class="col-md-4">
+		        <%= button_tag(type: :submit, class: "btn btn-success") do %>
+		          <%# fa_icon "search", class: "fa-xs" %>Search
+		        <% end %>
+		      </div>
+		    </div>
+		  
+		  <% end %>
+		</div>
+		<div id="products">
+			<%= render 'product' %>
+		</div>
+    </div>
 
     <!-- Page Content -->
-    <div id="page-content-wrapper">
+    <div id="page-content-wrapper" class="mx-5">
 		<h1 class="text-center my-3">Create new order</h1>
 		<div class="row">
 			<div class="col-lg-10 offset-lg-1 col-md-12 col-sm-10 offset-sm-1 col-xs-10 offset-xs-1 col-10 offset-1">
-				<div class="card my-2 px-2 py-2">
+				<div class="card my-3 px-2 py-2 bg-light">
 					<h4>Customer: <span class="customer_details h5"><span class="red-color">Please add customer <%= fa_icon "exclamation", class: 'fa-xs red-color' %></span></span></h4> 
 				</div>
+			</div>
+		</div>
+		
 				<%= form_for @agg_order do |f| %>
 					
 					<%= f.hidden_field :employee_id, value: current_employee.id %>
@@ -20,7 +46,7 @@
 							<%= render 'order_fields', :f => order %>
 						<% end %>
 					</div>
-					<div class='links'>
+					<div class='mt-2'>
 				      <%= link_to_add_association 'Add Item', f, :orders, class: 'btn btn-primary' %>
 				    </div>
 					<div class="form-group text-center">
@@ -28,12 +54,12 @@
 					</div>
 
 				<% end %>
-			</div>
-		</div>
+			
+		
 	</div>
 
 	<!-- Sidebar -->
-    <div class="bg-light border-right align-self-start" id="sidebar-wrapper">
+    <div class="bg-light border align-self-start sidebar-wrapper">
       <h3 class="text-center my-3">Search for Customer</h3>
 		<div id="customer-lookup">
 		  <%= form_tag search_customers_path, remote: true, method: :get, id: "customer-lookup-form" do %>

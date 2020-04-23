@@ -40,7 +40,7 @@ class CustomersController < ApplicationController
 
   def search
     if params[:customer].blank?
-
+      
     else
       @customer = Customer.new_from_lookup(params[:customer])
       flash.now[:danger] = "No customer with that phone number exists" unless @customer

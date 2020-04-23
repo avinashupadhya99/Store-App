@@ -1,32 +1,34 @@
-<h1 class="text-center my-3">Showing all customers</h1>
+<div class="container">
+	<h1 class="text-center my-3">Showing all customers</h1>
 
 
-<div class="d-flex mt-3"><!--Pagination-->
-  <div class="mx-auto">
-    <%= will_paginate @customers, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
-  </div>
-</div>
-<% @customers.each do |customer| %>
-<div class="row">
-	<div class="col-md-8 offset-md-2">
-	<div class="card border-secondary mb-3">
-	  <div class="card-body text-dark blue-bg">
-	    <h5><%= customer.fname %> <%= customer.lname %></h5>
-	    +91 <%= customer.phone %><br>
-	    <%= customer.email %>
-	  </div>
-	  <%= link_to '', customer_path(customer), class:'stretched-link' %>	
-	  <div class="card-footer bg-light border-secondary">
-	  	<% all_orders = AggregatedOrder.where(customer_id: customer.id) %>
-	  	<% items_bought = Order.where(aggregated_order: all_orders).distinct.pluck(:product_id).count %><!--Count of all sub orders of the customer with distinct products, i.e, the number of distinct products(items) bought by the customer-->
-	  	<%= fa_icon "shopping-cart", class: 'fa-2x' %><span class="h3"> : <%= items_bought %></span>
+	<div class="d-flex mt-3"><!--Pagination-->
+	  <div class="mx-auto">
+	    <%= will_paginate @customers, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
 	  </div>
 	</div>
-</div>
-</div>
-<% end %>
-<div class="d-flex mt-3"><!--Pagination-->
-  <div class="mx-auto">
-    <%= will_paginate @customers, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
-  </div>
+	<% @customers.each do |customer| %>
+	<div class="row">
+		<div class="col-md-8 offset-md-2">
+		<div class="card border-secondary mb-3">
+		  <div class="card-body text-dark blue-bg">
+		    <h5><%= customer.fname %> <%= customer.lname %></h5>
+		    +91 <%= customer.phone %><br>
+		    <%= customer.email %>
+		  </div>
+		  <%= link_to '', customer_path(customer), class:'stretched-link' %>	
+		  <div class="card-footer bg-light border-secondary">
+		  	<% all_orders = AggregatedOrder.where(customer_id: customer.id) %>
+		  	<% items_bought = Order.where(aggregated_order: all_orders).distinct.pluck(:product_id).count %><!--Count of all sub orders of the customer with distinct products, i.e, the number of distinct products(items) bought by the customer-->
+		  	<%= fa_icon "shopping-cart", class: 'fa-2x' %><span class="h3"> : <%= items_bought %></span>
+		  </div>
+		</div>
+	</div>
+	</div>
+	<% end %>
+	<div class="d-flex mt-3"><!--Pagination-->
+	  <div class="mx-auto">
+	    <%= will_paginate @customers, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+	  </div>
+	</div>
 </div>

@@ -1,71 +1,73 @@
-<h1 class="text-center mt-3 mb-3"><%= @customer.fname %>&nbsp;<%= @customer.lname %></h1>
+<div class="container">
+	<h1 class="text-center mt-3 mb-3"><%= @customer.fname %>&nbsp;<%= @customer.lname %></h1>
 
-<!--Edit employee button, only for admin-->
-<% if current_user.admin? %>
-	<div class="text-center">
-		<%# link_to 'Edit Info', edit_employee_path(@employee), class:"btn btn-info btn-sm" %>
-	</div>
-<% end %>
-<div class="row mt-5">
-	<div class="col-md-8 offset-md-2">
-		<table class="table table-striped">
-		  <tbody>
-		    <tr>
-		      <td class="font-weight-bold blue-color"><h5>Email</h5></td>
-		      <td><%= @customer.email %></td>
-		    </tr>
-		    <tr>
-		      <td class="font-weight-bold blue-color"><h5>Phone</h5></td>
-		      <td>+91 <%= @customer.phone %></td>
-		    </tr>
-		  </tbody>
-		</table>
-	</div>
-
-	<div class="col-md-4 offset-md-4">
-		<div class="squareItem mx-5"><!--Number of items box-->
-			<div class="squareInnerContainer">
-				<div class="squareIcon">
-					<%= fa_icon "shopping-cart" %>
-				</div>
-				<div class="squareContent">
-					<h1 class="counter"><%= @items_bought %></h1>
-					<h3>Items bought</h3>
-				</div>
-			</div>
-		</div>
-	</div>
-	<% if @all_orders_page %><!--Display all orders if present-->
-		
-		<div class="col-md-8 offset-md-2">
-			<h3 class="my-4">Orders by <%= @customer.fname %>&nbsp;<%= @customer.lname %></h3>
-			<table class="table table-hover">
-			  <thead class="thead-dark">
-			    <tr>
-			      <th scope="col">#</th>
-			      <th scope="col">No.of items</th>
-			      <th scope="col">Employee</th>
-			      <th scope="col">Time</th>
-			    </tr>
-			  </thead>
-			  <tbody>
-			  	<% @all_orders_page.each do |each_order| %>
-			  		<% employee = Employee.find(each_order.employee_id) %><!--Employee of each order-->
-			  		<% each_sub_order = Order.where(aggregated_order_id: each_order.id) %><!--All sub orders of each aggregated order-->
-				    <tr onclick="window.location='<%= aggregated_order_path(each_order) %>'" class="clickable"><!--Make the entire link clickable-->
-				      <th scope="row"><%= each_order.id %></th>
-				      <td><%= each_sub_order.count %></td>
-				      <td><%= employee.fName %>&nbsp;<%= employee.lName %></td>
-				      <td><%= each_order.created_at %> (<%= time_ago_in_words(each_order.created_at) %> ago)</td>
-				    </tr>
-			    <% end %>
-			  </tbody>
-			</table>
-			<div class="d-flex mt-3"><!--Pagination-->
-			  <div class="mx-auto">
-			    <%= will_paginate @all_orders_page, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
-			  </div>
-			</div>
+	<!--Edit employee button, only for admin-->
+	<% if current_user.admin? %>
+		<div class="text-center">
+			<%# link_to 'Edit Info', edit_employee_path(@employee), class:"btn btn-info btn-sm" %>
 		</div>
 	<% end %>
+	<div class="row mt-5">
+		<div class="col-md-8 offset-md-2">
+			<table class="table table-striped">
+			  <tbody>
+			    <tr>
+			      <td class="font-weight-bold blue-color"><h5>Email</h5></td>
+			      <td><%= @customer.email %></td>
+			    </tr>
+			    <tr>
+			      <td class="font-weight-bold blue-color"><h5>Phone</h5></td>
+			      <td>+91 <%= @customer.phone %></td>
+			    </tr>
+			  </tbody>
+			</table>
+		</div>
+
+		<div class="col-md-4 offset-md-4">
+			<div class="squareItem mx-5"><!--Number of items box-->
+				<div class="squareInnerContainer">
+					<div class="squareIcon">
+						<%= fa_icon "shopping-cart" %>
+					</div>
+					<div class="squareContent">
+						<h1 class="counter"><%= @items_bought %></h1>
+						<h3>Items bought</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+		<% if @all_orders_page %><!--Display all orders if present-->
+			
+			<div class="col-md-8 offset-md-2">
+				<h3 class="my-4">Orders by <%= @customer.fname %>&nbsp;<%= @customer.lname %></h3>
+				<table class="table table-hover">
+				  <thead class="thead-dark">
+				    <tr>
+				      <th scope="col">#</th>
+				      <th scope="col">No.of items</th>
+				      <th scope="col">Employee</th>
+				      <th scope="col">Time</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  	<% @all_orders_page.each do |each_order| %>
+				  		<% employee = Employee.find(each_order.employee_id) %><!--Employee of each order-->
+				  		<% each_sub_order = Order.where(aggregated_order_id: each_order.id) %><!--All sub orders of each aggregated order-->
+					    <tr onclick="window.location='<%= aggregated_order_path(each_order) %>'" class="clickable"><!--Make the entire link clickable-->
+					      <th scope="row"><%= each_order.id %></th>
+					      <td><%= each_sub_order.count %></td>
+					      <td><%= employee.fName %>&nbsp;<%= employee.lName %></td>
+					      <td><%= each_order.created_at %> (<%= time_ago_in_words(each_order.created_at) %> ago)</td>
+					    </tr>
+				    <% end %>
+				  </tbody>
+				</table>
+				<div class="d-flex mt-3"><!--Pagination-->
+				  <div class="mx-auto">
+				    <%= will_paginate @all_orders_page, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+				  </div>
+				</div>
+			</div>
+		<% end %>
+	</div>
 </div>

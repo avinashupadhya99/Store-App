@@ -1,53 +1,55 @@
-<h1 class="text-center mt-3 mb-3"><%= @employee.fName %>&nbsp;<%= @employee.lName %></h1>
-<div class="text-center mb-3">
-	Joined <%= time_ago_in_words(@employee.created_at) %> ago
-</div>
-<!--Edit employee button, only for admin-->
-<% if current_user.admin? %>
-	<div class="text-center">
-		<%= link_to 'Edit Info', edit_employee_path(@employee), class:"btn btn-info btn-sm" %>
-		<% user = User.find_by(employee_id: @employee.id) %>
-		<% if user.present? %>
-			<%= link_to 'Delete user', user_path(user), method: :delete, data: { confirm: "Are you sure you want to delete the user(login)?" }, class:"btn btn-danger btn-sm" %>
-		<% end %>
+<div class="container">
+	<h1 class="text-center mt-3 mb-3"><%= @employee.fName %>&nbsp;<%= @employee.lName %></h1>
+	<div class="text-center mb-3">
+		Joined <%= time_ago_in_words(@employee.created_at) %> ago
 	</div>
-<% end %>
-<div class="row mt-5">
-	<div class="col-md-8 offset-md-2">
-		<table class="table table-striped">
-		  <tbody>
-		    <tr>
-		      <td class="font-weight-bold blue-color"><h5>Email</h5></td>
-		      <td><%= @employee.email %></td>
-		    </tr>
-		    <tr>
-		      <td class="font-weight-bold blue-color"><h5>Phone</h5></td>
-		      <td>+91 <%= @employee.phone %></td>
-		    </tr>
-		    <tr>
-		      <td class="font-weight-bold blue-color"><h5>Date of birth</h5></td>
-		      <td><%= @employee.dob %></td>
-		    </tr>
-		    <tr>
-		      <td class="font-weight-bold blue-color"><h5>Address</h5></td>
-		      <td><%= @employee.address %></td>
-		    </tr>
-		  </tbody>
-		</table>
-	</div>
-	<% if (user.present? && !user.admin?) || (!user.present?) %> <!--Do not display the number of orders processed for admins-->
-		<div class="col-md-4 offset-md-4">
-			<div class="squareItem mx-5"><!--Number of orders processed box-->
-				<div class="squareInnerContainer">
-					<div class="squareIcon">
-						<%= fa_icon "shopping-cart" %>
-					</div>
-					<div class="squareContent">
-						<h1 class="counter"><%= @orders_processed %></h1>
-						<h3>Orders processed</h3>
+	<!--Edit employee button, only for admin-->
+	<% if current_user.admin? %>
+		<div class="text-center">
+			<%= link_to 'Edit Info', edit_employee_path(@employee), class:"btn btn-info btn-sm" %>
+			<% user = User.find_by(employee_id: @employee.id) %>
+			<% if user.present? %>
+				<%= link_to 'Delete user', user_path(user), method: :delete, data: { confirm: "Are you sure you want to delete the user(login)?" }, class:"btn btn-danger btn-sm" %>
+			<% end %>
+		</div>
+	<% end %>
+	<div class="row mt-5">
+		<div class="col-md-8 offset-md-2">
+			<table class="table table-striped">
+			  <tbody>
+			    <tr>
+			      <td class="font-weight-bold blue-color"><h5>Email</h5></td>
+			      <td><%= @employee.email %></td>
+			    </tr>
+			    <tr>
+			      <td class="font-weight-bold blue-color"><h5>Phone</h5></td>
+			      <td>+91 <%= @employee.phone %></td>
+			    </tr>
+			    <tr>
+			      <td class="font-weight-bold blue-color"><h5>Date of birth</h5></td>
+			      <td><%= @employee.dob %></td>
+			    </tr>
+			    <tr>
+			      <td class="font-weight-bold blue-color"><h5>Address</h5></td>
+			      <td><%= @employee.address %></td>
+			    </tr>
+			  </tbody>
+			</table>
+		</div>
+		<% if (user.present? && !user.admin?) || (!user.present?) %> <!--Do not display the number of orders processed for admins-->
+			<div class="col-md-4 offset-md-4">
+				<div class="squareItem mx-5"><!--Number of orders processed box-->
+					<div class="squareInnerContainer">
+						<div class="squareIcon">
+							<%= fa_icon "shopping-cart" %>
+						</div>
+						<div class="squareContent">
+							<h1 class="counter"><%= @orders_processed %></h1>
+							<h3>Orders processed</h3>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	<% end %>
+		<% end %>
+	</div>
 </div>

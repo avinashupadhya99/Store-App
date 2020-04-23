@@ -20,14 +20,6 @@
 //= require turbolinks
 //= require_tree .
 
-$(document).ready(function(){
-	$('#addCustomer').click(function(){
- 		console.log('c');
- 		return false;
- 	}); 
-});
-
-
  $(document).on('turbolinks:load', function() {
 
 

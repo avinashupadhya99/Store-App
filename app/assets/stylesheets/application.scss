@@ -76,13 +76,9 @@ body {
 }
 
 
-.aggregated_orders_new .container {
-	width : 100% !important;
-	padding-right: 0px !important;
-	margin-right : 70px !important;
-}
 
-#sidebar-wrapper {
+
+.sidebar-wrapper {
   margin-left: -15rem;
   -webkit-transition: margin .25s ease-out;
   -moz-transition: margin .25s ease-out;
@@ -91,8 +87,9 @@ body {
 }
 
 
-#sidebar-wrapper {
-  width: 30rem;
+.sidebar-wrapper {
+  marging-top: 400px;
+  width: 50rem;
 }
 
 #page-content-wrapper {
@@ -101,7 +98,7 @@ body {
 
 
 @media (min-width: 500px) {
-  #sidebar-wrapper {
+  .sidebar-wrapper {
     margin-left: 0;
   }
 
@@ -110,7 +107,7 @@ body {
     width: 100%;
   }
 
-  #wrapper.toggled #sidebar-wrapper {
+  #wrapper.toggled .sidebar-wrapper {
     margin-left: -15rem;
   }
 }
