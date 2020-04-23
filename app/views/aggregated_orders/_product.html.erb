@@ -1,5 +1,5 @@
 <%= render 'layouts/messages' %>
-<% if @product %>
+<% if @product && @product.length()>0 %>
 	<table class="table table-striped table-sm">
   <thead>
     <tr>

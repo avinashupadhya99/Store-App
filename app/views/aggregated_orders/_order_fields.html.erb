@@ -1,7 +1,15 @@
 <div class="card my-1">
 	
-	<div class="row">
-		<div class="col-md-4 offset-md-2">
+	<div class="row mx-2 my-1">
+		<div class="col-md-2">
+			<div class="form-group">
+				<h5 class="font-weight-normal">
+					<%= f.label :product_id %>
+				</h5>
+					<%= f.number_field :product_id, class: "form-control", id: "product_id", placeholder: "Product ID" %>
+			</div>
+		</div>
+		<div class="col-md-5">
 			<div class="form-group">
 				<h5 class="font-weight-normal">
 					<%= f.label :quantity %>
@@ -9,7 +17,7 @@
 					<%= f.number_field :quantity, class: "form-control", id: "quantity", placeholder: "Enter quantity" %>
 			</div>
 		</div>
-		<div class="col-md-4">
+		<div class="col-md-5">
 			<div class="form-group">
 				<h5 class="font-weight-normal">
 					<%= f.label :amount %>
