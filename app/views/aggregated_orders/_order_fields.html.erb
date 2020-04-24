@@ -2,9 +2,11 @@
 
 	<div class="row mt-2"> <!--Error messages-->
 		<div class="col-md-10 offset-md-1 col-sm-10 offset-sm-1 col-10 offset-10">
-				<div class='alert alert-danger error-alert'>
-					<a href="#" class="close" data-dismiss="alert">&#215;</a>
-					<span class="error_message"></span>
+				<div class='alert alert-danger prod-error-alert'>
+					No product with that ID
+				</div>
+				<div class='alert alert-danger quant-error-alert'>
+					Quantity exceeds inventory
 				</div>
 		</div>
 	</div>
@@ -30,7 +32,7 @@
 				<h5 class="font-weight-normal">
 					<%= f.label :amount %>
 				</h5>
-					<%= f.number_field :amount, class: "form-control", :readonly => true, placeholder: "Amount" %>
+					<%= f.number_field :amount, class: "form-control", id: "amount", :readonly => true, placeholder: "Amount" %>
 			</div>
 		</div>
 		<div class="col-md-8 offset-md-2">
@@ -42,7 +44,8 @@
 	</div>
 </article>
 <script>
-    $('.error-alert').hide(); //Initially hide the error alert
+    $('.prod-error-alert').hide(); //Initially hide the product id error alert
+    $('.quant-error-alert').hide(); //Initially hide the quantity error alert
 	<% products = Product.all %> //Fetch all products from db
 	var prods = '<%= products.to_json %>'; //Convert to json with ruby
 	var jsprods = prods.replace(/&quot;/g, "\""); //Replace all &quot; with "
@@ -60,17 +63,41 @@
 				}
 			});
 			if(found==false) {
-				$(this).closest('article').find('.error-alert').show();
+				$(this).closest('article').find('.prod-error-alert').show();
 				$q.val('');
 				$q.attr("readonly", true);
-				$(this).closest('article').find('.error_message').html('No product with that ID');
 			} else {
-				$(this).closest('article').find('.error-alert').hide();
+				$(this).closest('article').find('.prod-error-alert').hide();
 
 			}
 			if(event.keyCode == 13) {
 				event.preventDefault();
 			}
 		}
+	});
+	$('article #quantity').on('keydown blur', function(event) {
+		var total_amount = $('.total-amount').text();
+		if(event.keyCode == 13 || event.keyCode == 9 || event.type=='blur'){ //Check if enter or tab is pressed
+			var q = $(this).val(); //Quantity entered 
+			var p = $(this).closest('article').find("#product_id").val(); //Product id of the current form
+			var $a = $(this).closest('article').find("#amount"); //Amount input field
+			var $qea = $(this).closest('article').find('.quant-error-alert'); //Alert box of quantity errors
+			$.each( jsonprods, function( key, value ) { //Loop through the JSON
+				if(value.id == p) { //Find the product from the JSON
+					if(q<=value.quantity) { //Check if qunatity entered is within the inventory range
+						$a.val(q*value.price); //Set the amount field with the computed amount
+						$qea.hide();
+					} else {
+						$qea.show();
+						$a.val('');
+					}
+					
+				}
+			});
+			if(event.keyCode == 13) {
+				event.preventDefault();
+			}
+		}
+
 	});
 </script>
