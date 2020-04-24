@@ -89,7 +89,7 @@ body {
 
 .sidebar-wrapper {
   marging-top: 400px;
-  width: 50rem;
+  width: 40rem;
 }
 
 #page-content-wrapper {
@@ -103,6 +103,7 @@ body {
   }
 
   #page-content-wrapper {
+    margin-left: 50rem;
     min-width: 0;
     width: 100%;
   }
@@ -111,3 +112,29 @@ body {
     margin-left: -15rem;
   }
 }
+
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 300px;
+  background-color: #f1f1f1;
+  position: fixed;
+
+}
+
+
+div.content {
+  margin-left: 300px;
+}
+
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar a {float: left;}
+  div.content {margin-left: 0;}
+}
+
+
