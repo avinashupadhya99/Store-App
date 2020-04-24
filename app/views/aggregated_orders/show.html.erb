@@ -30,6 +30,15 @@
 				<h4 class="text-muted"><%= @agg_order.created_at %></h4>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-lg-2 offset-lg-4 col-md-3 offset-md-3 col-sm-3 offset-sm-3 col-xs-3 offset-xs-3 col-3 offset-3">
+				<h4>Total amount</h4>
+			</div>
+				<h4>:</h4>
+			<div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 col-4">
+				<h4 class="text-muted"><%= @sub_orders.sum(:amount) %></h4>
+			</div>
+		</div>
 	</div>
 	<div class="row mt-4">
 		<div class="col-md-8 offset-md-2">

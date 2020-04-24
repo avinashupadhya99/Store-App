@@ -1,5 +1,4 @@
-<div class="card my-1">
-	
+<article class="card my-1">
 	<div class="row mx-2 my-1">
 		<div class="col-md-2">
 			<div class="form-group">
@@ -14,7 +13,7 @@
 				<h5 class="font-weight-normal">
 					<%= f.label :quantity %>
 				</h5>
-					<%= f.number_field :quantity, class: "form-control", id: "quantity", placeholder: "Enter quantity" %>
+					<%= f.number_field :quantity, class: "form-control", id: "quantity", :readonly => true, placeholder: "Enter quantity" %>
 			</div>
 		</div>
 		<div class="col-md-5">
@@ -22,13 +21,24 @@
 				<h5 class="font-weight-normal">
 					<%= f.label :amount %>
 				</h5>
-					<%= f.number_field :amount, class: "form-control", placeholder: "Enter amount" %>
+					<%= f.number_field :amount, class: "form-control", :readonly => true, placeholder: "Amount" %>
 			</div>
 		</div>
 		<div class="col-md-8 offset-md-2">
 			<span class="float-right">
-				<%= link_to_remove_association "Delete item", f %>
+				<%= f.hidden_field :_destroy %>
+    			<%= link_to 'Delete', '#', class: 'remove_record btn btn-danger btn-sm' %>
 			</span>
 		</div>
 	</div>
-</div>
+</article>
+<script>
+	$('article #product_id').on('keydown', function(event) {
+		if(event.keyCode == 13){
+			var p = $(this).val();
+			//Add validation here
+			$(this).closest('article').find("#quantity").attr("readonly", false);
+			event.preventDefault();
+		}
+	});
+</script>

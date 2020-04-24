@@ -7,13 +7,13 @@
 	  </div>
 	</div>
 
-	<div class="row mt-5">
-		<div class="col-md-8 offset-md-2">
-			<table class="table table-hover">
+			<table class="table table-hover mt-5">
 			  <thead class="thead-dark">
 			    <tr>
 			      <th scope="col">#</th>
+			      <th scope="col">Customer</th>
 			      <th scope="col">No.of items</th>
+			      <th scope="col">Total Amount</th>
 			      <th scope="col">Employee</th>
 			      <th scope="col">Time</th>
 			    </tr>
@@ -21,16 +21,17 @@
 			  <tbody>
 			  	<% @agg_orders.each do |each_order| %>
 			  		<% employee = Employee.find(each_order.employee_id) %><!--Employee who processed the order-->
+			  		<% customer = Customer.find(each_order.customer_id) %><!--Customer who placed the order-->
 			  		<% each_sub_order = Order.where(aggregated_order_id: each_order.id) %> <!--Sub order of each aggregated order-->
 				    <tr onclick="window.location='<%= aggregated_order_path(each_order) %>'" class="clickable"><!--Make the entire table row as a link for the aggregated order-->
 				      <th scope="row"><%= each_order.id %></th>
+				      <td><%= customer.fname %>&nbsp;<%= customer.lname %></td>
 				      <td><%= each_sub_order.count %></td><!--Number of items in each sub order-->
+				      <td><%= each_sub_order.sum(:amount) %></td><!--Total of each sub order's amount-->
 				      <td><%= employee.fName %>&nbsp;<%= employee.lName %></td><!--Name of the employee who processed it-->
 				      <td><%= each_order.created_at %> (<%= time_ago_in_words(each_order.created_at) %> ago)</td><!--Time of each sub order-->
 				    </tr>
 			    <% end %>
 			  </tbody>
 			</table>
-		</div>
-	</div>
 </div>
