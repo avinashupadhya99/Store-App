@@ -1,4 +1,13 @@
 <article class="card my-1">
+
+	<div class="row mt-2">
+		<div class="col-md-10 offset-md-1 col-sm-10 offset-sm-1 col-10 offset-10">
+				<div class='alert alert-danger error-alert'>
+					<a href="#" class="close" data-dismiss="alert">&#215;</a>
+					<span class="error_message"></span>
+				</div>
+		</div>
+	</div>
 	<div class="row mx-2 my-1">
 		<div class="col-md-2">
 			<div class="form-group">
@@ -33,11 +42,32 @@
 	</div>
 </article>
 <script>
+    $('.error-alert').hide();
+	<% products = Product.all %> //Fetch all products from db
+	var prods = '<%= products.to_json %>'; //Convert to json with ruby
+	var jsprods = prods.replace(/&quot;/g, "\""); //Replace all &quot; with "
+	var jsonprods = JSON.parse(jsprods); //Parse the converted string into JSON format
 	$('article #product_id').on('keydown', function(event) {
-		if(event.keyCode == 13){
-			var p = $(this).val();
+		if(event.keyCode == 13){ //Check if enter is pressed
+			var p = $(this).val(); //Product id entered 
+			var $q =$(this).closest('article').find("#quantity"); //Quantity input field of the current form
 			//Add validation here
-			$(this).closest('article').find("#quantity").attr("readonly", false);
+			var found = false; 
+			$.each( jsonprods, function( key, value ) {
+				if(value.id == p){
+					$q.attr("readonly", false);
+					found = true;
+				}
+			});
+			if(found==false) {
+				$('.error-alert').show();
+				$q.attr("readonly", true);
+				$('.error_message').html('No product with that ID');
+			} else {
+				$('.error-alert').hide();
+
+			}
+			
 			event.preventDefault();
 		}
 	});
