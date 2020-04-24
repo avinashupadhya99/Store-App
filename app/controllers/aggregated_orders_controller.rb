@@ -14,8 +14,16 @@ class AggregatedOrdersController < ApplicationController
 	def create
 		@agg_order = AggregatedOrder.new(agg_order_params)
 		if @agg_order.save
-			flash[:success] = "Order was placed successfully"
-			redirect_to aggregated_order_path(@agg_order)
+			sub_orders = Order.where(aggregated_order: @agg_order)
+			if sub_orders.length()==0
+				@agg_order.destroy
+				flash.now[:danger] = "Order should contain a minimum of one item"
+				@customer_new = Customer.new #For new customer form
+				render 'new'
+			else
+				flash[:success] = "Order was placed successfully #{sub_orders.length()}"
+				redirect_to aggregated_order_path(@agg_order)
+			end
 		else
 			@customer_new = Customer.new #For new customer form
 			render 'new'

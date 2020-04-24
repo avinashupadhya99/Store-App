@@ -1,6 +1,6 @@
 <article class="card my-1">
 
-	<div class="row mt-2">
+	<div class="row mt-2"> <!--Error messages-->
 		<div class="col-md-10 offset-md-1 col-sm-10 offset-sm-1 col-10 offset-10">
 				<div class='alert alert-danger error-alert'>
 					<a href="#" class="close" data-dismiss="alert">&#215;</a>
@@ -42,33 +42,35 @@
 	</div>
 </article>
 <script>
-    $('.error-alert').hide();
+    $('.error-alert').hide(); //Initially hide the error alert
 	<% products = Product.all %> //Fetch all products from db
 	var prods = '<%= products.to_json %>'; //Convert to json with ruby
 	var jsprods = prods.replace(/&quot;/g, "\""); //Replace all &quot; with "
 	var jsonprods = JSON.parse(jsprods); //Parse the converted string into JSON format
-	$('article #product_id').on('keydown', function(event) {
-		if(event.keyCode == 13){ //Check if enter is pressed
+	$('article #product_id').on('keydown blur', function(event) {
+		if(event.keyCode == 13 || event.keyCode == 9 || event.type=='blur'){ //Check if enter or tab is pressed
 			var p = $(this).val(); //Product id entered 
 			var $q =$(this).closest('article').find("#quantity"); //Quantity input field of the current form
 			//Add validation here
-			var found = false; 
-			$.each( jsonprods, function( key, value ) {
-				if(value.id == p){
-					$q.attr("readonly", false);
+			var found = false; //Flag to check if product exists
+			$.each( jsonprods, function( key, value ) { //Loop through the JSON
+				if(value.id == p){ //Check if product id exists
+					$q.attr("readonly", false); //set quantity field as editable
 					found = true;
 				}
 			});
 			if(found==false) {
-				$('.error-alert').show();
+				$(this).closest('article').find('.error-alert').show();
+				$q.val('');
 				$q.attr("readonly", true);
-				$('.error_message').html('No product with that ID');
+				$(this).closest('article').find('.error_message').html('No product with that ID');
 			} else {
-				$('.error-alert').hide();
+				$(this).closest('article').find('.error-alert').hide();
 
 			}
-			
-			event.preventDefault();
+			if(event.keyCode == 13) {
+				event.preventDefault();
+			}
 		}
 	});
 </script>

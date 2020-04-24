@@ -1,4 +1,8 @@
-<%= render 'layouts/messages' %>
+<% flash.each do |name, msg| %>
+  <% if msg != "Order should contain a minimum of one item" %>
+    <%= render 'layouts/messages' %>
+  <% end %>
+<% end %>
 <% if @product && @product.length()>0 %>
 	<table class="table table-striped table-sm">
   <thead>
