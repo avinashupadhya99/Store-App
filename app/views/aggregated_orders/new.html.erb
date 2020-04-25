@@ -100,12 +100,21 @@
 </div>
 <script>
 	var productsList = []; //Stores the ids of all products of each order (To ensure no duplicates)
+	<% products = Product.all %> //Fetch all products from db
+	var prods = '<%= products.to_json %>'; //Convert to json with ruby
+	var jsprods = prods.replace(/&quot;/g, "\""); //Replace all &quot; with "
+	var jsonprods = JSON.parse(jsprods); //Parse the converted string into JSON format
+	$('form').on('cocoon:after-insert', function(e, insertedItem) {
+		insertedItem.find('.prod-error-alert').hide(); //Initially hide the product id error alert
+		insertedItem.find('.quant-error-alert').hide(); //Initially hide the quantity error alert
+    	insertedItem.find('.prod-dup-error-alert').hide(); //Initially hide the product duplicate error alert
+	});
 
 	$('form').on('click', '.remove_record', function(event) {
     $(this).prev('input[type=hidden]').val('1');
     console.log($(this).prev('input[type=hidden]').val)
     $(this).closest('article').hide();
-    var pv = $(this).closest('article').find('#product_id').val();
+    var pv = $(this).closest('article').find('#product_id').val(); //Find the product id of the form being delted
     const index = productsList.indexOf(pv);
     if (index > -1) {
 	  productsList.splice(index, 1);

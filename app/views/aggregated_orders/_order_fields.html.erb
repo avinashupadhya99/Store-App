@@ -46,13 +46,8 @@
 	</div>
 </article>
 <script>
-    $('.prod-error-alert').hide(); //Initially hide the product id error alert
-    $('.quant-error-alert').hide(); //Initially hide the quantity error alert
-    $('.prod-dup-error-alert').hide(); //Initially hide the product duplicate error alert
-	<% products = Product.all %> //Fetch all products from db
-	var prods = '<%= products.to_json %>'; //Convert to json with ruby
-	var jsprods = prods.replace(/&quot;/g, "\""); //Replace all &quot; with "
-	var jsonprods = JSON.parse(jsprods); //Parse the converted string into JSON format
+    
+	
 	var currp;
 	var currq;
 	var dup =false;
@@ -70,12 +65,12 @@
 	});
 		$('article #product_id').on('blur', function(event) {
 			if(event.type=='blur' && count==0){ //Check if field is out of focus
-				var p = $(this).val(); //Product id entered 
+				const p = $(this).val(); //Product id entered 
 				var $q =$(this).closest('article').find("#quantity"); //Quantity input field of the current form
 				var $a =$(this).closest('article').find("#amount"); //Amount field of the current form
 				var $pdea = $(this).closest('article').find('.prod-dup-error-alert'); //Error alert for duplicate products
+				$qea = $(this).closest('article').find('.quant-error-alert');
 				dup = $pdea.is(":visible");
-				console.log(dup);
 				var found = false; //Flag to check if product exists in db
 				$.each( jsonprods, function( key, value ) { //Loop through the JSON
 					if(value.id == p){ //Check if product id exists
@@ -85,6 +80,7 @@
 							productsList.push(p);
 						} else if(currp!=p){	
 							$pdea.show();
+							$qea.hide();
 							$q.val('');
 							$a.val('');
 							$q.attr("readonly", true);
@@ -95,15 +91,17 @@
 						found = true;
 					}
 				});
-				if((p!=currp)  && !dup ){
+				if((p!=currp)  && !dup ){ //Remove the previous product id from the list if the new is not same and the previous product id is not a duplicate
 					const index = productsList.indexOf(currp);
 
 				    if (index > -1) {
 						productsList.splice(index, 1);
 					}
 				}
-				if(found==false) {
-					$(this).closest('article').find('.prod-error-alert').show();
+				if(found==false) { //Check if the product id entered is present in the db
+					$(this).closest('article').find('.prod-error-alert').show(); //Display error and hide other errors
+					$pdea.hide();
+					$qea.hide();
 					$q.val('');
 					$a.val('');
 					$q.attr("readonly", true);
@@ -111,10 +109,6 @@
 					$(this).closest('article').find('.prod-error-alert').hide();
 
 				}
-				if(event.keyCode == 13) {
-					event.preventDefault();
-				}
-				console.log(productsList);
 			}
 			count++;
 		});
@@ -146,9 +140,6 @@
 					
 				}
 			});
-			if(event.keyCode == 13) {
-				event.preventDefault();
-			}
 		}
 		count++;
 
