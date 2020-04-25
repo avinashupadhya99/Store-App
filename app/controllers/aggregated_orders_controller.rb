@@ -21,6 +21,11 @@ class AggregatedOrdersController < ApplicationController
 				@customer_new = Customer.new #For new customer form
 				render 'new'
 			else
+				sub_orders.each do |sub_order|
+					p = Product.find(sub_order.product_id)
+					p.quantity = p.quantity - sub_order.quantity
+					p.save
+				end
 				flash[:success] = "Order was placed successfully placed"
 				redirect_to aggregated_order_path(@agg_order)
 			end
