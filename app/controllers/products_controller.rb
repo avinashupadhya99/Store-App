@@ -23,7 +23,7 @@ class ProductsController < ApplicationController
     if params[:product].blank?
 
     else
-      @product = Product.new_from_lookup(params[:product])
+      @product = Product.new_from_lookup(params[:product]).paginate(page: params[:page], per_page: 7)
       flash.now[:danger] = "No product with that name exists" unless @product.present?
     end
     respond_to do |format|
