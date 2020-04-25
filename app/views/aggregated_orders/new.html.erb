@@ -98,3 +98,19 @@
 	    <!-- /#sidebar-wrapper -->
 	</div>
 </div>
+<script>
+	var productsList = []; //Stores the ids of all products of each order (To ensure no duplicates)
+
+	$('form').on('click', '.remove_record', function(event) {
+    $(this).prev('input[type=hidden]').val('1');
+    console.log($(this).prev('input[type=hidden]').val)
+    $(this).closest('article').hide();
+    var pv = $(this).closest('article').find('#product_id').val();
+    const index = productsList.indexOf(pv);
+    if (index > -1) {
+	  productsList.splice(index, 1);
+	}
+    return event.preventDefault();
+  });
+
+</script>

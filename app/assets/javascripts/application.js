@@ -23,12 +23,7 @@
  $(document).on('turbolinks:load', function() {
 
 
-  $('form').on('click', '.remove_record', function(event) {
-    $(this).prev('input[type=hidden]').val('1');
-    console.log($(this).prev('input[type=hidden]').val)
-    $(this).closest('article').hide();
-    return event.preventDefault();
-  });
+  
 
 
   

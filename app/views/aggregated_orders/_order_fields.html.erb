@@ -5,6 +5,9 @@
 				<div class='alert alert-danger prod-error-alert'>
 					No product with that ID
 				</div>
+				<div class='alert alert-danger prod-dup-error-alert'>
+					Product already added to order
+				</div>
 				<div class='alert alert-danger quant-error-alert'>
 					Quantity exceeds inventory
 				</div>
@@ -46,19 +49,41 @@
 <script>
     $('.prod-error-alert').hide(); //Initially hide the product id error alert
     $('.quant-error-alert').hide(); //Initially hide the quantity error alert
+    $('.prod-dup-error-alert').hide(); //Initially hide the product duplicate error alert
 	<% products = Product.all %> //Fetch all products from db
 	var prods = '<%= products.to_json %>'; //Convert to json with ruby
 	var jsprods = prods.replace(/&quot;/g, "\""); //Replace all &quot; with "
 	var jsonprods = JSON.parse(jsprods); //Parse the converted string into JSON format
-	$('article #product_id').on('keydown blur', function(event) {
-		if(event.keyCode == 13 || event.keyCode == 9 || event.type=='blur'){ //Check if enter or tab is pressed
+	var curr;
+	
+	$('article #product_id').on('focus', function(event) {
+		curr = $(this).val();
+	});
+	$('article #product_id').on('keydown', function(event) {
+		if(event.keyCode == 13){
+			event.preventDefault();
+		}
+	});
+	$('article #product_id').on('blur', function(event) {
+		if(event.type=='blur'){ //Check if enter or tab is pressed or field is out of focus and not both
 			var p = $(this).val(); //Product id entered 
 			var $q =$(this).closest('article').find("#quantity"); //Quantity input field of the current form
 			//Add validation here
+			var $pdea = $(this).closest('article').find('.prod-dup-error-alert'); //Error alert for duplicate products
 			var found = false; //Flag to check if product exists
 			$.each( jsonprods, function( key, value ) { //Loop through the JSON
 				if(value.id == p){ //Check if product id exists
-					$q.attr("readonly", false); //set quantity field as editable
+					if(!productsList.includes(p)){
+						$q.attr("readonly", false); //set quantity field as editable	
+						productsList.push(p);
+					} else {
+						$pdea.show();
+						$q.val('');
+						$q.attr("readonly", true);
+					}
+					if(p==curr) {
+						$q.attr("readonly", false); //set quantity field as editable
+					}
 					found = true;
 				}
 			});
