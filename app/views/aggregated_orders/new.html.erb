@@ -113,9 +113,11 @@
 
 	$('form').on('click', '.remove_record', function(event) {
     $(this).prev('input[type=hidden]').val('1');
-    console.log($(this).prev('input[type=hidden]').val)
     $(this).closest('article').hide();
     var pv = $(this).closest('article').find('#product_id').val(); //Find the product id of the form being delted
+    var av = $(this).closest('article').find('#amount').val(); //Find the amount of the form being delted
+    var totalamt = parseInt($('.total-amount').text());
+    $('.total-amount').text(totalamt-av);
     const index = productsList.indexOf(pv);
     if (index > -1) {
 	  productsList.splice(index, 1);

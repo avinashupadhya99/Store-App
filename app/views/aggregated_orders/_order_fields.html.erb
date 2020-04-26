@@ -53,68 +53,78 @@
 	var dup =false;
 	var isBound = false;
 	var count = 0;
+	var curra;
+	var $ta = $('.total-amount');
 	
 	$('article #product_id').on('focus', function(event) {
 		count=0;
 		currp = $(this).val();
+		curra = $(this).closest('article').find("#amount").val();
 	});
 	$('article #product_id').on('keydown', function(event) {
 		if(event.keyCode == 13){
 			event.preventDefault();
 		}
 	});
-		$('article #product_id').on('blur', function(event) {
-			if(event.type=='blur' && count==0){ //Check if field is out of focus
-				const p = $(this).val(); //Product id entered 
-				var $q =$(this).closest('article').find("#quantity"); //Quantity input field of the current form
-				var $a =$(this).closest('article').find("#amount"); //Amount field of the current form
-				var $pdea = $(this).closest('article').find('.prod-dup-error-alert'); //Error alert for duplicate products
-				$qea = $(this).closest('article').find('.quant-error-alert');
-				dup = $pdea.is(":visible");
-				var found = false; //Flag to check if product exists in db
-				$.each( jsonprods, function( key, value ) { //Loop through the JSON
-					if(value.id == p){ //Check if product id exists
-						if(!productsList.includes(p)){
-							$pdea.hide();
-							$q.attr("readonly", false); //set quantity field as editable	
-							productsList.push(p);
-						} else if(currp!=p){	
-							$pdea.show();
-							$qea.hide();
-							$q.val('');
-							$a.val('');
-							$q.attr("readonly", true);
-						}
-						if(p==currp) {
-							$q.attr("readonly", false); //set quantity field as editable
-						}
-						found = true;
+	$('article #product_id').on('blur', function(event) {
+		if(event.type=='blur' && count==0){ //Check if field is out of focus
+			const p = $(this).val(); //Product id entered 
+			var $q =$(this).closest('article').find("#quantity"); //Quantity input field of the current form
+			var $a =$(this).closest('article').find("#amount"); //Amount field of the current form
+			var $pdea = $(this).closest('article').find('.prod-dup-error-alert'); //Error alert for duplicate products
+			$qea = $(this).closest('article').find('.quant-error-alert');
+			dup = $pdea.is(":visible");
+			var found = false; //Flag to check if product exists in db
+			$.each( jsonprods, function( key, value ) { //Loop through the JSON
+				if(value.id == p){ //Check if product id exists
+					if(!productsList.includes(p)){
+						$pdea.hide();
+						$q.attr("readonly", false); //set quantity field as editable	
+						productsList.push(p);
+					} else if(currp!=p){	
+						$pdea.show();
+						$qea.hide();
+						$q.val('');
+						$a.val('');
+						$q.attr("readonly", true);
+						var tamt = parseInt($ta.text()); //Update total amount
+						tamt-=curra;
+						$ta.text(tamt);	
 					}
-				});
-				if((p!=currp)  && !dup ){ //Remove the previous product id from the list if the new is not same and the previous product id is not a duplicate
-					const index = productsList.indexOf(currp);
-
-				    if (index > -1) {
-						productsList.splice(index, 1);
+					if(p==currp) {
+						$q.attr("readonly", false); //set quantity field as editable
 					}
+					found = true;
 				}
-				if(found==false) { //Check if the product id entered is present in the db
-					$(this).closest('article').find('.prod-error-alert').show(); //Display error and hide other errors
-					$pdea.hide();
-					$qea.hide();
-					$q.val('');
-					$a.val('');
-					$q.attr("readonly", true);
-				} else {
-					$(this).closest('article').find('.prod-error-alert').hide();
+			});
+			if((p!=currp)  && !dup ){ //Remove the previous product id from the list if the new is not same and the previous product id is not a duplicate
+				const index = productsList.indexOf(currp);
 
+			    if (index > -1) {
+					productsList.splice(index, 1);
 				}
 			}
-			count++;
-		});
+			if(found==false) { //Check if the product id entered is present in the db
+				$(this).closest('article').find('.prod-error-alert').show(); //Display error and hide other errors
+				$pdea.hide();
+				$qea.hide();
+				$q.val('');
+				$a.val('');
+				$q.attr("readonly", true);
+				var tamt = parseInt($ta.text()); //Update total amount
+				tamt-=curra;
+				$ta.text(tamt);
+			} else {
+				$(this).closest('article').find('.prod-error-alert').hide();
+
+			}
+		}
+		count++;
+	});
 	$('article #quantity').on('focus', function(event) {
 		currq = $(this).val();
 		count = 0;
+		curra = $(this).closest('article').find("#amount").val();
 	});
 	$('article #quantity').on('keydown', function(event) {
 		if(event.keyCode == 13){
@@ -126,14 +136,21 @@
 			var q = $(this).val(); //Quantity entered 
 			var p = $(this).closest('article').find("#product_id").val(); //Product id of the current form
 			var $a = $(this).closest('article').find("#amount"); //Amount input field
-			var curra = parseInt($a.val());
+			// var curra = parseInt($a.val());
+			var tamt = parseInt($ta.text());
+			var total;
+			console.log(curra);
 			var $qea = $(this).closest('article').find('.quant-error-alert'); //Alert box of quantity errors
 			$.each( jsonprods, function( key, value ) { //Loop through the JSON
 				if(value.id == p) { //Find the product from the JSON
 					if(q<=value.quantity) { //Check if qunatity entered is within the inventory range
 						$a.val(q*value.price); //Set the amount field with the computed amount
+						total = tamt + (q*value.price) - curra;
+						$ta.text(total);
 						$qea.hide();
 					} else {
+						total = tamt - curra;
+						$ta.text(total);
 						$qea.show();
 						$a.val('');
 					}
