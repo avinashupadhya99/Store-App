@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200418064444) do
+ActiveRecord::Schema.define(version: 20200426164403) do
 
   create_table "aggregated_orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.datetime "created_at", null: false
@@ -28,6 +28,14 @@ ActiveRecord::Schema.define(version: 20200418064444) do
     t.string "phone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "discounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.decimal "percent", precision: 10
+    t.bigint "product_id"
+    t.index ["product_id"], name: "index_discounts_on_product_id"
   end
 
   create_table "employees", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -68,6 +76,7 @@ ActiveRecord::Schema.define(version: 20200418064444) do
 
   add_foreign_key "aggregated_orders", "customers"
   add_foreign_key "aggregated_orders", "employees"
+  add_foreign_key "discounts", "products"
   add_foreign_key "orders", "aggregated_orders"
   add_foreign_key "orders", "products"
   add_foreign_key "users", "employees"

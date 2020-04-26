@@ -110,7 +110,9 @@
 		insertedItem.find('.quant-error-alert').hide(); //Initially hide the quantity error alert
     	insertedItem.find('.prod-dup-error-alert').hide(); //Initially hide the product duplicate error alert
 	});
-
+	$('.prod-error-alert').hide(); //Initially hide the product id error alert
+	$('.quant-error-alert').hide(); //Initially hide the quantity error alert
+    $('.prod-dup-error-alert').hide(); //Initially hide the product duplicate error alert
 	$('form').on('click', '.remove_record', function(event) {
     $(this).prev('input[type=hidden]').val('1');
     $(this).closest('article').hide();
