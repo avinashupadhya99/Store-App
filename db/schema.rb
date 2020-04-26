@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200426164403) do
+ActiveRecord::Schema.define(version: 20200426201825) do
 
   create_table "aggregated_orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.datetime "created_at", null: false
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 20200426164403) do
 
   create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer "quantity"
-    t.bigint "amount"
+    t.decimal "amount", precision: 10
     t.bigint "product_id"
     t.bigint "aggregated_order_id"
     t.index ["aggregated_order_id"], name: "index_orders_on_aggregated_order_id"

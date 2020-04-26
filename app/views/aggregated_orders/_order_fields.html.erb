@@ -36,7 +36,7 @@
 				<h5 class="font-weight-normal">
 					<%= f.label :amount %>
 				</h5>
-					<%= f.number_field :amount, class: "form-control", id: "amount", :readonly => true, placeholder: "Amount" %>
+					<%= f.number_field :amount, step: :any, class: "form-control", id: "amount", :readonly => true, placeholder: "Amount" %>
 			</div>
 		</div>
 		<div class="col-md-8 offset-md-2">
@@ -48,12 +48,10 @@
 	</div>
 </article>
 <script>
-    
-	
+
 	var currp;
 	var currq;
 	var dup =false;
-	var isBound = false;
 	var count = 0;
 	var curra;
 	var $ta = $('.total-amount');
@@ -79,6 +77,7 @@
 			dup = $pdea.is(":visible");
 			if(p!=currp) {
 				$discinfo.hide();
+				$qea.hide();
 			}
 			var found = false; //Flag to check if product exists in db
 			$.each( jsonprods, function( key, value ) { //Loop through the JSON
@@ -93,7 +92,7 @@
 								var start_date = new Date(parseInt(v.starts_at.substring(0,4)), parseInt(v.starts_at.substring(5,7))-1, parseInt(v.starts_at.substring(8,10)));
 								var end_date = new Date(parseInt(v.ends_at.substring(0,4)), parseInt(v.ends_at.substring(5,7))-1, parseInt(v.ends_at.substring(8,10)));
 								if(today >= start_date && today <= end_date){
-									$discinfo.html('Discount of '+v.percent+'% is available for the product.');
+									$discinfo.html('Discount of <span class="disc-percent">'+v.percent+'</span>% is available for the product.');
 									$discinfo.show();
 								}
 							}
@@ -105,7 +104,7 @@
 						$q.val('');
 						$a.val('');
 						$q.attr("readonly", true);
-						var tamt = parseInt($ta.text()); //Update total amount
+						var tamt = parseFloat($ta.text()); //Update total amount
 						tamt-=curra;
 						$ta.text(tamt);	
 					}
@@ -123,7 +122,7 @@
 				}
 				$q.val('');
 				$a.val('');
-				var tamt = parseInt($ta.text()); //Update total amount
+				var tamt = parseFloat($ta.text()); //Update total amount
 				tamt-=curra;
 				$ta.text(tamt);
 			}
@@ -134,7 +133,7 @@
 				$q.val('');
 				$a.val('');
 				$q.attr("readonly", true);
-				var tamt = parseInt($ta.text()); //Update total amount
+				var tamt = parseFloat($ta.text()); //Update total amount
 				tamt-=curra;
 				$ta.text(tamt);
 			} else {
@@ -160,14 +159,22 @@
 			var p = $(this).closest('article').find("#product_id").val(); //Product id of the current form
 			var $a = $(this).closest('article').find("#amount"); //Amount input field
 			// var curra = parseInt($a.val());
-			var tamt = parseInt($ta.text());
+			var tamt = parseFloat($ta.text());
 			var total;
+			var $discinfo = $(this).closest('article').find('.discount-info-alert');
+			var discnt = parseFloat($discinfo.find('.disc-percent').text());
 			var $qea = $(this).closest('article').find('.quant-error-alert'); //Alert box of quantity errors
 			$.each( jsonprods, function( key, value ) { //Loop through the JSON
 				if(value.id == p) { //Find the product from the JSON
-					if(q<=value.quantity) { //Check if qunatity entered is within the inventory range
-						$a.val(q*value.price); //Set the amount field with the computed amount
-						total = tamt + (q*value.price) - curra;
+					if(q<=value.quantity) { //Check if quantity entered is within the inventory range
+						if($discinfo.is(":visible")){
+							var discamt = (q*value.price)-(q*value.price)*(discnt/100);
+							$a.val(discamt);
+							total = tamt + discamt -curra;
+						} else{
+							$a.val(q*value.price); //Set the amount field with the computed amount
+							total = tamt + (q*value.price) - curra;
+						}
 						$ta.text(total);
 						$qea.hide();
 					} else {
