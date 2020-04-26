@@ -118,6 +118,23 @@
 	$('.prod-error-alert').hide(); //Initially hide the product id error alert
 	$('.quant-error-alert').hide(); //Initially hide the quantity error alert
     $('.prod-dup-error-alert').hide(); //Initially hide the product duplicate error alert
+    $('.discount-info-alert').hide();
+
+    $('article').each(function(){
+    	var prod = $(this).find('#product_id').val();
+    	var $discinfo = $(this).find('.discount-info-alert');
+    	$.each( jsondiscs, function( k, v ) {
+    		if(prod == v.product_id) {
+    			var today = new Date();
+				var start_date = new Date(parseInt(v.starts_at.substring(0,4)), parseInt(v.starts_at.substring(5,7))-1, parseInt(v.starts_at.substring(8,10)));
+				var end_date = new Date(parseInt(v.ends_at.substring(0,4)), parseInt(v.ends_at.substring(5,7))-1, parseInt(v.ends_at.substring(8,10)));
+				if(today >= start_date && today <= end_date){
+					$discinfo.html('Discount of '+v.percent+'% is available for the product.');
+					$discinfo.show();
+				}
+    		}
+    	});
+    });
 
 	$('form').on('click', '.remove_record', function(event) {
 	    $(this).prev('input[type=hidden]').val('1');

@@ -92,9 +92,6 @@
 								var today = new Date();
 								var start_date = new Date(parseInt(v.starts_at.substring(0,4)), parseInt(v.starts_at.substring(5,7))-1, parseInt(v.starts_at.substring(8,10)));
 								var end_date = new Date(parseInt(v.ends_at.substring(0,4)), parseInt(v.ends_at.substring(5,7))-1, parseInt(v.ends_at.substring(8,10)));
-								console.log(today);
-								console.log(start_date);
-								console.log(end_date);
 								if(today >= start_date && today <= end_date){
 									$discinfo.html('Discount of '+v.percent+'% is available for the product.');
 									$discinfo.show();
