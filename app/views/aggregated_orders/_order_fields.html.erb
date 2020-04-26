@@ -10,6 +10,8 @@
 				<div class='alert alert-danger quant-error-alert'>
 					Quantity exceeds inventory
 				</div>
+				<div class='alert alert-info discount-info-alert'>
+				</div>
 		</div>
 	</div>
 	<div class="row mx-2 my-1">
@@ -72,8 +74,12 @@
 			var $q =$(this).closest('article').find("#quantity"); //Quantity input field of the current form
 			var $a =$(this).closest('article').find("#amount"); //Amount field of the current form
 			var $pdea = $(this).closest('article').find('.prod-dup-error-alert'); //Error alert for duplicate products
+			var $discinfo = $(this).closest('article').find('.discount-info-alert');
 			$qea = $(this).closest('article').find('.quant-error-alert');
 			dup = $pdea.is(":visible");
+			if(p!=currp) {
+				$discinfo.hide();
+			}
 			var found = false; //Flag to check if product exists in db
 			$.each( jsonprods, function( key, value ) { //Loop through the JSON
 				if(value.id == p){ //Check if product id exists
@@ -81,7 +87,22 @@
 						$pdea.hide();
 						$q.attr("readonly", false); //set quantity field as editable	
 						productsList.push(p);
-					} else if(currp!=p){	
+						$.each( jsondiscs, function( k, v ) { //Loop through the JSON
+							if(v.product_id==p) {
+								var today = new Date();
+								var start_date = new Date(parseInt(v.starts_at.substring(0,4)), parseInt(v.starts_at.substring(5,7))-1, parseInt(v.starts_at.substring(8,10)));
+								var end_date = new Date(parseInt(v.ends_at.substring(0,4)), parseInt(v.ends_at.substring(5,7))-1, parseInt(v.ends_at.substring(8,10)));
+								console.log(today);
+								console.log(start_date);
+								console.log(end_date);
+								if(today >= start_date && today <= end_date){
+									$discinfo.html('Discount of '+v.percent+'% is available for the product.');
+									$discinfo.show();
+								}
+							}
+						});
+					} else if(currp!=p){
+						$discinfo.hide();	
 						$pdea.show();
 						$qea.hide();
 						$q.val('');
@@ -97,12 +118,17 @@
 					found = true;
 				}
 			});
+			
 			if((p!=currp)  && !dup ){ //Remove the previous product id from the list if the new is not same and the previous product id is not a duplicate
 				const index = productsList.indexOf(currp);
-
 			    if (index > -1) {
 					productsList.splice(index, 1);
 				}
+				$q.val('');
+				$a.val('');
+				var tamt = parseInt($ta.text()); //Update total amount
+				tamt-=curra;
+				$ta.text(tamt);
 			}
 			if(found==false) { //Check if the product id entered is present in the db
 				$(this).closest('article').find('.prod-error-alert').show(); //Display error and hide other errors

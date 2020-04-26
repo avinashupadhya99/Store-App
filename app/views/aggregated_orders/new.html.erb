@@ -102,29 +102,35 @@
 <script>
 	var productsList = []; //Stores the ids of all products of each order (To ensure no duplicates)
 	<% products = Product.all %> //Fetch all products from db
+	<% discounts = Discount.all %>
 	var prods = '<%= products.to_json %>'; //Convert to json with ruby
 	var jsprods = prods.replace(/&quot;/g, "\""); //Replace all &quot; with "
 	var jsonprods = JSON.parse(jsprods); //Parse the converted string into JSON format
-	$('form').on('cocoon:after-insert', function(e, insertedItem) {
-		insertedItem.find('.prod-error-alert').hide(); //Initially hide the product id error alert
-		insertedItem.find('.quant-error-alert').hide(); //Initially hide the quantity error alert
-    	insertedItem.find('.prod-dup-error-alert').hide(); //Initially hide the product duplicate error alert
+	var discs = '<%= discounts.to_json %>'; //Convert to json with ruby
+	var jsdiscs = discs.replace(/&quot;/g, "\""); //Replace all &quot; with "
+	var jsondiscs = JSON.parse(jsdiscs); //Parse the converted string into JSON format
+	$('form').on('cocoon:after-insert', function(e, insertedItem) { //Initially hide all alerts when the nested form is created
+		insertedItem.find('.prod-error-alert').hide(); 
+		insertedItem.find('.quant-error-alert').hide(); 
+    	insertedItem.find('.prod-dup-error-alert').hide(); 
+    	insertedItem.find('.discount-info-alert').hide();
 	});
 	$('.prod-error-alert').hide(); //Initially hide the product id error alert
 	$('.quant-error-alert').hide(); //Initially hide the quantity error alert
     $('.prod-dup-error-alert').hide(); //Initially hide the product duplicate error alert
+
 	$('form').on('click', '.remove_record', function(event) {
-    $(this).prev('input[type=hidden]').val('1');
-    $(this).closest('article').hide();
-    var pv = $(this).closest('article').find('#product_id').val(); //Find the product id of the form being delted
-    var av = $(this).closest('article').find('#amount').val(); //Find the amount of the form being delted
-    var totalamt = parseInt($('.total-amount').text());
-    $('.total-amount').text(totalamt-av);
-    const index = productsList.indexOf(pv);
-    if (index > -1) {
-	  productsList.splice(index, 1);
-	}
-    return event.preventDefault();
-  });
+	    $(this).prev('input[type=hidden]').val('1');
+	    $(this).closest('article').hide();
+	    var pv = $(this).closest('article').find('#product_id').val(); //Find the product id of the form being delted
+	    var av = $(this).closest('article').find('#amount').val(); //Find the amount of the form being delted
+	    var totalamt = parseInt($('.total-amount').text());
+	    $('.total-amount').text(totalamt-av);
+	    const index = productsList.indexOf(pv);
+	    if (index > -1) {
+		  productsList.splice(index, 1);
+		}
+	    return event.preventDefault();
+  	});
 
 </script>
