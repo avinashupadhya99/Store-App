@@ -1,0 +1,14 @@
+current directory: C:/Users/asus/Store-App/vendor/bundler/ruby/2.6.0/gems/nio4r-2.5.2/ext/nio4r
+C:/Ruby26-x64/bin/ruby.exe -I C:/Ruby26-x64/lib/ruby/2.6.0 -r ./siteconf20200427-9056-zyxcqo.rb extconf.rb
+
+current directory: C:/Users/asus/Store-App/vendor/bundler/ruby/2.6.0/gems/nio4r-2.5.2/ext/nio4r
+make "DESTDIR=" clean
+make: *** No rule to make target 'clean'.  Stop.
+
+current directory: C:/Users/asus/Store-App/vendor/bundler/ruby/2.6.0/gems/nio4r-2.5.2/ext/nio4r
+make "DESTDIR="
+make: Nothing to be done for 'all'.
+
+current directory: C:/Users/asus/Store-App/vendor/bundler/ruby/2.6.0/gems/nio4r-2.5.2/ext/nio4r
+make "DESTDIR=" install
+make: Nothing to be done for 'install'.

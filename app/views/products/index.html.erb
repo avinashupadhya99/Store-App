@@ -1,0 +1,21 @@
+<h1>Products in inventory are </h1>
+ 
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Price</th>
+		<th>Quantity</th>
+		<th>Category</th>
+	</tr>
+
+	<% products.each do |product| %>
+	<tr>
+		<td><%= product.name %></td>
+		<td><%= product.price %></td>
+		<td><%= product.quantity %></td>
+		<td><%= product.category %></td>
+		<td><%= link_to 'Edit' , edit_product_path(article) %></td>
+		<td><%=  link_to 'Delete' , delete_path(product), data: {confirm: "Are yous sure?"} %></td>
+	</tr>
+	<%end%>
+</table>

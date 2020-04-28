@@ -1,0 +1,18 @@
+<% if @product.errors.any? %>
+<ul>
+	<% @product.errors.full_messages.each do |msg| %>
+	<li> <%= msg %> </li>
+	<% end %>
+</ul>
+<% end %>
+
+
+
+<%= form_for @product do |p| %>
+	Name : <%= p.text_field :name %> <br/>
+	Price : <%= p.textfield :price %> <br/>
+	Quantity : <%= p.textfield :quantity %><br/>
+	Category : <%= p.textfield :category %></br>
+
+	<%= p.submit %>
+<% end %>
