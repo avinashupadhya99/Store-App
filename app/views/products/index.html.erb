@@ -1,21 +1,35 @@
-<h1>Products in inventory are </h1>
- 
-<table>
-	<tr>
-		<th>Name</th>
-		<th>Price</th>
-		<th>Quantity</th>
-		<th>Category</th>
-	</tr>
-
-	<% products.each do |product| %>
-	<tr>
-		<td><%= product.name %></td>
-		<td><%= product.price %></td>
-		<td><%= product.quantity %></td>
-		<td><%= product.category %></td>
-		<td><%= link_to 'Edit' , edit_product_path(article) %></td>
-		<td><%=  link_to 'Delete' , delete_path(product), data: {confirm: "Are yous sure?"} %></td>
-	</tr>
-	<%end%>
-</table>
+<div class="container">
+	<h1 class="text-center mt-3">Products in inventory</h1>
+	<div class="float-right mr-5 my-3">
+		<%= link_to 'Add Product', new_product_path, class: 'btn btn-success' %>
+	</div>
+	<div class="d-flex mt-3">
+	  <div class="mx-auto">
+	    <%= will_paginate @products, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+	  </div>
+	</div>
+	<table class="table">
+	  <thead class="thead-dark">
+	    <tr>
+	      <th scope="col">#</th>
+	      <th scope="col">Name</th>
+	      <th scope="col">Price</th>
+	      <th scope="col">Quantity</th>
+	      <th scope="col">Category</th>
+	      <th scope="col">Actions</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <% @products.each do |product| %>
+		<tr>
+			<td><%= product.id %></td>
+			<td><%= product.name %></td>
+			<td><%= product.price %></td>
+			<td><%= product.quantity %></td>
+			<td><%= product.category %></td>
+			<td><%= link_to 'Edit' , edit_product_path(product), class: 'btn btn-info btn-sm' %>&nbsp;<%=  link_to 'Delete' , product_path(product), method: :delete, data: {confirm: "Are yous sure?"}, class: 'btn btn-danger btn-sm' %></td>
+		</tr>
+		<%end%>
+	  </tbody>
+	</table>
+</div>

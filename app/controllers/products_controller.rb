@@ -3,7 +3,7 @@ class ProductsController < ApplicationController
   before_action :require_user
   
   def index
-    @products = Products.all? { |e|  }
+    @products = Product.paginate(page: params[:page], per_page: 10)
   end
   
   def new
@@ -13,10 +13,11 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     if @product.save
-      flash[:notice] = "Product is successfully stored"
+      flash[:success] = "Product is successfully stored"
       redirect_to products_path(@product)
     else
       render 'new'
+    end
   end
 
   def show
@@ -30,7 +31,7 @@ class ProductsController < ApplicationController
   def update
     @product = Product.find(params[:id])
     if @product.update(product_params)
-      flash[:notice] = "Product information is edited"
+      flash[:success] = "Product information is updated"
       redirect_to products_path(@product)
     else
       render 'edit'
@@ -41,12 +42,11 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
     @product.destroy
     flash[:danger] = "Product was successfully deleted"
+    redirect_to product_path
   end
 
 
-  private def product_params 
-    params.require(:product).permit(:name, :price, :quantity, :catagory)
-  end
+
 
   def search
     if params[:product].blank?
@@ -58,6 +58,12 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.js { render partial: 'aggregated_orders/product' }
     end
+  end
+
+  private 
+
+  def product_params 
+    params.require(:product).permit(:name, :price, :quantity, :category)
   end
 
 end
