@@ -51,7 +51,25 @@ class DiscountsController < ApplicationController
 	end
 
 	def update
-
+		@discount = Discount.find(params[:id])
+		if @discount.valid?
+			old_discount = Discount.find_by("starts_at <= ? AND ends_at >= ? AND product_id = ?", Date.parse(params[:discount][:starts_at]), Date.parse(params[:discount][:starts_at]), params[:discount][:product_id].to_i)
+			old_discount1 = Discount.find_by("starts_at <= ? AND ends_at >= ? AND product_id = ?", Date.parse(params[:discount][:ends_at]), Date.parse(params[:discount][:ends_at]), params[:discount][:product_id].to_i)
+			old_discount2 = Discount.find_by("starts_at >= ? AND ends_at <= ? AND product_id = ?", Date.parse(params[:discount][:starts_at]), Date.parse(params[:discount][:ends_at]), params[:discount][:product_id].to_i)
+			if (old_discount.present? && old_discount.id!=@discount.id) || (old_discount1.present? && old_discount1.id!=@discount.id) || (old_discount2.present? && old_discount2.id!=@discount.id)
+				flash.now[:danger] = "Discount already exists for the product in that period"
+				render 'new'
+			else	
+				if @discount.update(discount_params)
+					flash[:success] = "Discount updated successfully"
+					redirect_to discounts_path
+				else
+					render 'new'
+				end
+			end
+		else
+			render 'new'
+		end
 	end
 
 	def destroy
