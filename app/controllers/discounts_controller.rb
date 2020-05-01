@@ -20,13 +20,21 @@ class DiscountsController < ApplicationController
 	end
 
 	def new
+		@discount = Discount.new
 	end
 
 	def create
-
+		@discount = Discount.new(discount_params)
+		if @discount.save
+			flash[:success] = "Discount created successfully"
+			redirect_to discounts_path
+		else
+			render 'new'
+		end
 	end
 
 	def edit
+		@discount = Discount.find(params[:id])
 		#Check if a discount exists in the period mentioned for that product
 	end
 
@@ -35,6 +43,12 @@ class DiscountsController < ApplicationController
 	end
 
 	def destroy
+	end
+
+	private
+	def discount_params
+		params.require(:discount).permit(:starts_at, :ends_at, :percent, :product_id)
+		
 	end
 
 end

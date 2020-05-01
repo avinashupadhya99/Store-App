@@ -4,9 +4,7 @@
 		<span class="ml-auto h5 font-weight-normal">
 			<%= fa_icon "square", class: 'fa-xs text-success' %> : <%= link_to('Active', {:action => 'index', :type => 'active'}, class: 'text-decoration-none') %> &nbsp; 
 			<%= fa_icon "square", class: 'fa-xs text-danger' %> : <%= link_to('Expired', {:action => 'index', :type => 'expired'}, class: 'text-decoration-none') %> &nbsp; 
-			<%= fa_icon "square", class: 'fa-xs text-info' %> : <%= link_to('Not yet started', {:action => 'index', :type => 'notstarted'}, class: 'text-decoration-none') %>
-			<br>
-			
+			<%= fa_icon "square", class: 'fa-xs text-info' %> : <%= link_to('Not yet started', {:action => 'index', :type => 'notstarted'}, class: 'text-decoration-none') %>			
 		</span>
 	</div>
 	<div class="d-flex">
@@ -24,7 +22,7 @@
 			<% elsif discount.ends_at < Date.today %>
 				<% cls = "danger" %>
 			<% end %>
-			<div class="col-lg-4 col-md-6 col-sm-6 ">
+			<div class="col-lg-4 col-md-6 col-sm-6 mb-4">
 				<div class="card alert-<%="#{cls}"%>">
 					<div class="card-header bg-<%="#{cls}"%> text-light">
 						<h5 class="card-title"><%= product.name %></h5>
