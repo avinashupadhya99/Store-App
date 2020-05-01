@@ -74,6 +74,10 @@ class DiscountsController < ApplicationController
 	end
 
 	def destroy
+		@discount = Discount.find(params[:id])
+		@discount.destroy
+		flash[:danger] = "Discount was successfully deleted"
+		redirect_to discounts_path
 	end
 
 	private
