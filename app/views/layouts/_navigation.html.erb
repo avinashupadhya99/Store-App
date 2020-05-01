@@ -18,6 +18,9 @@
           <%= link_to 'All Orders', aggregated_orders_path, class: 'dropdown-item' %>
         </div>
       </li>
+      <li class="nav-item">
+        <%= link_to 'Discounts', discounts_path, class: 'nav-link' %>
+      </li>
       <% if logged_in? && current_user.admin? %><!--Display employees and customers only to admin-->
         <li class="nav-item">
           <%= link_to 'Employees', employees_path, class: 'nav-link' %>

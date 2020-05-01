@@ -1,0 +1,40 @@
+<div class="container">
+	<h1 class="text-center my-3">List of all discounts</h1>
+	<div class="row mb-3">
+		<span class="ml-auto h5 font-weight-normal">
+			<%= fa_icon "square", class: 'fa-xs text-success' %> : <%= link_to('Active', {:action => 'index', :type => 'active'}, class: 'text-decoration-none') %> &nbsp; 
+			<%= fa_icon "square", class: 'fa-xs text-danger' %> : <%= link_to('Expired', {:action => 'index', :type => 'expired'}, class: 'text-decoration-none') %> &nbsp; 
+			<%= fa_icon "square", class: 'fa-xs text-info' %> : <%= link_to('Not yet started', {:action => 'index', :type => 'notstarted'}, class: 'text-decoration-none') %>
+			<br>
+			
+		</span>
+	</div>
+	<div class="d-flex">
+	  <div class="mx-auto">
+	    <%= will_paginate @discounts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+	  </div>
+	</div>
+	<div class="row">
+		<% @discounts.each do |discount| %>
+			<% product = Product.find(discount.product_id) %>
+			<% if discount.ends_at >= Date.today && discount.starts_at <= Date.today %>
+				<% cls = "success" %>
+			<% elsif discount.ends_at > Date.today && discount.starts_at > Date.today %>
+				<% cls = "info" %>
+			<% elsif discount.ends_at < Date.today %>
+				<% cls = "danger" %>
+			<% end %>
+			<div class="col-lg-4 col-md-6 col-sm-6 ">
+				<div class="card alert-<%="#{cls}"%>">
+					<div class="card-header bg-<%="#{cls}"%> text-light">
+						<h5 class="card-title"><%= product.name %></h5>
+						<h6 class="card-subtitle mb-2 text-light"><%= discount.percent %>% off</h6>
+					</div>
+					<div class="card-body">
+						<p class="card-text"><%= discount.starts_at.strftime("%a, %d %b %Y")  %><br><%= discount.ends_at.strftime("%a, %d %b %Y")  %></p>
+					</div>
+				</div>
+			</div>
+		<% end %>
+	</div>
+</div>

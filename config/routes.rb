@@ -1,14 +1,16 @@
 Rails.application.routes.draw do
 
-	resources:customers
+	resources:customers, except:[:destroy]
 
-	resources:employees
+	resources:employees, except:[:destroy]
 
 	resources:orders, except:[:index, :show]
 
 	resources:products
 
-	resources:aggregated_orders
+	resources:aggregated_orders, except:[:edit, :update, :destroy]
+
+	resources:discounts, except:[:show]
 
 	resources:users, except:[:show, :index]
 	
