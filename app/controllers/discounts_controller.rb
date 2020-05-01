@@ -47,12 +47,13 @@ class DiscountsController < ApplicationController
 
 	def edit
 		@discount = Discount.find(params[:id])
-		#Check if a discount exists in the period mentioned for that product
+
 	end
 
 	def update
 		@discount = Discount.find(params[:id])
 		if @discount.valid?
+			#Check if a discount exists in the period mentioned for that product
 			old_discount = Discount.find_by("starts_at <= ? AND ends_at >= ? AND product_id = ?", Date.parse(params[:discount][:starts_at]), Date.parse(params[:discount][:starts_at]), params[:discount][:product_id].to_i)
 			old_discount1 = Discount.find_by("starts_at <= ? AND ends_at >= ? AND product_id = ?", Date.parse(params[:discount][:ends_at]), Date.parse(params[:discount][:ends_at]), params[:discount][:product_id].to_i)
 			old_discount2 = Discount.find_by("starts_at >= ? AND ends_at <= ? AND product_id = ?", Date.parse(params[:discount][:starts_at]), Date.parse(params[:discount][:ends_at]), params[:discount][:product_id].to_i)

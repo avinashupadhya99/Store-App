@@ -1,14 +1,13 @@
-<!--Error messages of discount-->
-<% if @discount.errors.any? %>
+<% if obj.errors.any? %>
 
 <div class="row mt-3 mb-0">
 	<div class="col-md-8 offset-md-2">
 		<div class="alert alert-danger" role="alert">
             <a href="#" class="close" data-dismiss="alert">&#215;</a>
-			<h5 class="card-title"><%= pluralize(@discount.errors.count, "error") %> prohibited this discount from being saved</h5>
+			<h5 class="card-title"><%= pluralize(obj.errors.count, "error") %> prohibited this from being saved</h5>
     		<p class="card-text">
     			<ul>
-    				<% @discount.errors.full_messages.each do |msg| %>
+    				<% obj.errors.full_messages.each do |msg| %>
 						<li><%= msg %></li>
 					<% end %>
     			</ul>
