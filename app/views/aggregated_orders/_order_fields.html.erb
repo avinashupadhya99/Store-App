@@ -90,7 +90,7 @@
 							if(v.product_id==p) {
 								var today = new Date();
 								var start_date = new Date(parseInt(v.starts_at.substring(0,4)), parseInt(v.starts_at.substring(5,7))-1, parseInt(v.starts_at.substring(8,10)));
-								var end_date = new Date(parseInt(v.ends_at.substring(0,4)), parseInt(v.ends_at.substring(5,7))-1, parseInt(v.ends_at.substring(8,10)));
+								var end_date = new Date(parseInt(v.ends_at.substring(0,4))+1, parseInt(v.ends_at.substring(5,7))-1, parseInt(v.ends_at.substring(8,10)));
 								if(today >= start_date && today <= end_date){
 									$discinfo.html('Discount of <span class="disc-percent">'+v.percent+'</span>% is available for the product.');
 									$discinfo.show();

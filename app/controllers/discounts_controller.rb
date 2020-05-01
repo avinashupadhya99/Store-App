@@ -25,9 +25,21 @@ class DiscountsController < ApplicationController
 
 	def create
 		@discount = Discount.new(discount_params)
-		if @discount.save
-			flash[:success] = "Discount created successfully"
-			redirect_to discounts_path
+		if @discount.valid?
+			old_discount = Discount.where("starts_at <= ? AND ends_at >= ? AND product_id = ?", Date.parse(params[:discount][:starts_at]), Date.parse(params[:discount][:starts_at]), params[:discount][:product_id].to_i)
+			old_discount1 = Discount.where("starts_at <= ? AND ends_at >= ? AND product_id = ?", Date.parse(params[:discount][:ends_at]), Date.parse(params[:discount][:ends_at]), params[:discount][:product_id].to_i)
+			old_discount2 = Discount.where("starts_at >= ? AND ends_at <= ? AND product_id = ?", Date.parse(params[:discount][:starts_at]), Date.parse(params[:discount][:ends_at]), params[:discount][:product_id].to_i)
+			if old_discount.present? || old_discount1.present? || old_discount2.present?
+				flash.now[:danger] = "Discount already exists for the product in that period"
+				render 'new'
+			else	
+				if @discount.save
+					flash[:success] = "Discount created successfully"
+					redirect_to discounts_path
+				else
+					render 'new'
+				end
+			end
 		else
 			render 'new'
 		end
