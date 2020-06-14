@@ -1,0 +1,24 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.5
+    volumes:
+      - store-mysql:/var/lib/mysql
+    env_file:
+      - .env.mysql
+  app:
+    build: .
+    depends_on:
+      - db
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 8800 -b '0.0.0.0'"
+    volumes:
+      - .:/myapp
+    ports:
+      - "8800:8800"
+    env_file:
+      - .env
+volumes:
+  store-mysql:
+
+
+

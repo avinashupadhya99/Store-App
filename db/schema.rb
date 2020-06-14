@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 20200426201825) do
 
-  create_table "aggregated_orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "aggregated_orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "employee_id"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20200426201825) do
     t.index ["employee_id"], name: "index_aggregated_orders_on_employee_id"
   end
 
-  create_table "customers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "customers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "fname"
     t.string "lname"
     t.string "email"
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20200426201825) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "discounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "discounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.decimal "percent", precision: 10
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20200426201825) do
     t.index ["product_id"], name: "index_discounts_on_product_id"
   end
 
-  create_table "employees", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "employees", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "fName"
     t.string "lName"
     t.string "phone"
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20200426201825) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "quantity"
     t.decimal "amount", precision: 10
     t.bigint "product_id"
@@ -58,14 +58,14 @@ ActiveRecord::Schema.define(version: 20200426201825) do
     t.index ["product_id"], name: "index_orders_on_product_id"
   end
 
-  create_table "products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.integer "price"
     t.integer "quantity"
     t.string "category"
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
