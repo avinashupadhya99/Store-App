@@ -21,23 +21,6 @@ git clone https://github.com/avinashupadhya99/Store-App.git
 
 ### Setting up Development Environment
 
-Create a file named `.env` in source root with the following contents
-
-```
-RAILS_ENV=development
-
-MYSQL_SERVER=db
-MYSQL_DATABASE=storedb
-MYSQL_USERNAME=root
-MYSQL_PASSWORD=storedbpassword
-
-```
-
-Create a file named `.env.mysql` in source root with the following content
-
-```
-MYSQL_ROOT_PASSWORD=storedbpassword
-```
 
 Start the application server and MySQL using the command-
 
