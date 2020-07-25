@@ -46,5 +46,4 @@ Run this command only after running ``` docker-compose up ``` once before.
 This will create an admin user with the credenatials **admin@store.com** and password **password**. You can edit these after logging in or before seeding in the `db/seeds.rb`.
 
 ---
-
-### Refer to [Database Schema](https://github.com/avinashupadhya99/Store-App/wiki/DB-Schema) for the database schema diagrams of the application.
+> ### Refer to [Database Schema](https://github.com/avinashupadhya99/Store-App/wiki/DB-Schema) for the database schema diagrams of the application.
