@@ -1,4 +1,4 @@
-FROM ruby:2.6.9-slim-bullseye
+FROM ruby:2-slim-bullseye
 RUN apt-get update -qq && apt-get install -y nodejs default-libmysqlclient-dev
 RUN mkdir /myapp
 WORKDIR /myapp
